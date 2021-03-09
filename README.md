@@ -1,1 +1,1 @@
-"# HardHub" 
+# HardHub
