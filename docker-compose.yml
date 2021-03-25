@@ -1,0 +1,41 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - music-service
+#    volumes:
+#      - ./gateway/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+  music-service:
+    build:
+      context: music-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment:
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSJGGP4RU5
+      AWS_SECRET_ACCESS_KEY: 9W2sATBhZNDx9XRlJFQFTbAgx5IYhAfgVGs3HV1D
+      AWS_SESSION_TOKEN: FwoGZXIvYXdzEMb//////////wEaDOVyQ42W0tDDnbQ3GSLOATX9ucttPZ70Eu0MyqVBUMSfSY7FbkA2LFe3wgNcpsmtpd0momIgmbX2GNGoN6DjeMSFhytX5FkCCOYpss4fr+XlMphLhSHR/PM3Pun2aWWLt65K+EB+ValvoYi+tYukkdavl9dE/E2EXOJ0Rh8b6sSCTo4C5GmSJfbyfP1mA0FUBXpsWJVx+4aRErgGlWoobR2ismUi1paxQt2LTOaXvLYlvE09dOL7kHoLj284PSvqVWZIdbn+gsgO20YDTUAjeX6/LDq1me/tpdwwNqYOKOOG8oIGMi2hBdFDdFgsexRXhxo1Ky5VTJovI0Cl+tO8O6LgPepVVvG2b64B0KXCA4u1EJc=
+    ports:
+      - 8080:80
+    restart: on-failure
+
+  database:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=hardhub
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  AWS:
+    image: garland/aws-cli-docker
+volumes:
+  mongodb_data_container:
