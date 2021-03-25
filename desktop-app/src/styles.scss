@@ -1,0 +1,39 @@
+* {
+  margin: 0;
+  padding: 0;
+  color: white;
+  font-family: sans-serif;
+}
+
+div.main {
+  display: inline-block;
+  background-color: #363636;
+  width: 76%;
+  margin-left: 12%;
+  background: url(https://pro2-bar-s3-cdn-cf6.myportfolio.com/eae9ab4d92eb74ec26771eba708ab558/a4b729fe-9128-4387-90ad-656185a9b1c3.jpg?h=d338e13520c658c04b72c1fe545e6f44) rgb(22, 22, 22);
+  background-blend-mode: overlay;
+  background-position: center;
+  background-size: cover;
+  height: 837px;
+}
+
+div.side {
+  width: 12%;
+  background-color: #2C2C2C;
+  position: fixed;
+  height: 100%;
+  top: 0;
+}
+
+div.controls {
+  position: fixed;
+  bottom: 0;
+  background: url(https://i.ytimg.com/vi/8JpSRISfqeY/maxresdefault.jpg) rgb(44, 44, 44);
+  background-blend-mode:overlay;
+  background-position: center;
+  background-size: cover;
+  width: 76%;
+  left: 12%;
+  right: 12%;
+  height: 100px;
+}
