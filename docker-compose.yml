@@ -7,8 +7,6 @@ services:
       dockerfile: Dockerfile
     depends_on:
       - music-service
-#    volumes:
-#      - ./gateway/nginx.conf:/etc/nginx/nginx.conf
     ports:
       - 80:80
 
@@ -17,9 +15,9 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSJGGP4RU5
-      AWS_SECRET_ACCESS_KEY: 9W2sATBhZNDx9XRlJFQFTbAgx5IYhAfgVGs3HV1D
-      AWS_SESSION_TOKEN: FwoGZXIvYXdzEMb//////////wEaDOVyQ42W0tDDnbQ3GSLOATX9ucttPZ70Eu0MyqVBUMSfSY7FbkA2LFe3wgNcpsmtpd0momIgmbX2GNGoN6DjeMSFhytX5FkCCOYpss4fr+XlMphLhSHR/PM3Pun2aWWLt65K+EB+ValvoYi+tYukkdavl9dE/E2EXOJ0Rh8b6sSCTo4C5GmSJfbyfP1mA0FUBXpsWJVx+4aRErgGlWoobR2ismUi1paxQt2LTOaXvLYlvE09dOL7kHoLj284PSvqVWZIdbn+gsgO20YDTUAjeX6/LDq1me/tpdwwNqYOKOOG8oIGMi2hBdFDdFgsexRXhxo1Ky5VTJovI0Cl+tO8O6LgPepVVvG2b64B0KXCA4u1EJc=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSPASHPWBI
+      AWS_SECRET_ACCESS_KEY: y2Bl+A0NTK4MqqhYJPAbxW3SUV2digXAMruEuZUy
+      AWS_SESSION_TOKEN: FwoGZXIvYXdzED0aDO69p0yOMq5kGkfTUyLOARTBvtS0cWxvnKqOla0h7fozxpXMnxRdZ0odx9x6KMUY7GH/SRoqEsLGc50mfEn/ljj1Kcdbjr3z+1t8/ijSaH6LIhkadcpMtoLi0xfQgl92cTPYxBmPaTpiXfdwFl8kzd9f+2+gijTlAXvT0mT9V9xBSEn7jQA/Q2zzaNx6cuXvngYWb/jq83NiDpY3EcsjyjCMSUxJg42dr6puIunQuGN72MOCII/b5NJvAiIpcuXG7d2hGDUR0OOScug1waKclruumyt2ZcTNxRwYMx7GKIinjIMGMi0e3G8JVFSmFEM+0zNG7YjWiPrx/4RYGC9FO2QO26Vhh77aowBoLCp6h072Djk=
     ports:
       - 8080:80
     restart: on-failure
@@ -34,8 +32,5 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
-
-  AWS:
-    image: garland/aws-cli-docker
 volumes:
   mongodb_data_container:

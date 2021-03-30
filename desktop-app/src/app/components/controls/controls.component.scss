@@ -1,0 +1,31 @@
+::ng-deep .controls { 
+    .time-slider {
+        width: 100% !important;
+        margin-left: 20px;
+        margin-right: 20px;
+        .mat-slider-wrapper {
+            .mat-slider-track-wrapper {
+                background-color: white !important;
+                .mat-slider-track-fill {
+                    background-color: orange !important;
+                }
+            }
+        }
+    }
+    .media-action-bar {
+    width: 100%;
+    margin: 5px;
+    justify-content: center;
+    .ng-fa-icon {
+        font-size: 35px;
+        &:hover {
+            cursor: pointer;
+            svg {
+                path {
+                    color: orange;
+                }
+            }
+        }
+    }
+    }
+}
