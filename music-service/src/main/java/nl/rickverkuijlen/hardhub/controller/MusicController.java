@@ -1,6 +1,8 @@
-package nl.rickverkuijlen.hardhub;
+package nl.rickverkuijlen.hardhub.controller;
 
+import lombok.Getter;
 import nl.rickverkuijlen.hardhub.S3.FileObject;
+import nl.rickverkuijlen.hardhub.logic.MusicLogic;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -18,12 +20,16 @@ import javax.ws.rs.core.StreamingOutput;
 import java.io.ByteArrayOutputStream;
 import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Path("/music")
 public class MusicController extends CommonResource {
     @Inject
     S3Client s3;
+
+    @Inject
+    MusicLogic musicLogic;
 
     @GET
     @Path("{path}")
@@ -37,6 +43,14 @@ public class MusicController extends CommonResource {
         Response.ResponseBuilder response = Response.ok((StreamingOutput) baos::writeTo);
         response.header("Content-Disposition", "attachment;'filename=" + path);
         response.header("Content-Type", object.contentType());
+        return response.build();
+    }
+
+    @GET
+    @Path("test")
+    public Response getAllSongs() {
+        Response.ResponseBuilder response = Response.ok(musicLogic.getAll());
+        response.header("Content-Type", "application/json");
         return response.build();
     }
 

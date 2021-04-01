@@ -1,0 +1,32 @@
+div.main {
+    display: flex;
+    
+    .song {
+        width: 200px;
+        height: 200px;
+        margin: 15px;
+        position: relative;
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+        }
+        div.song-info {
+            z-index: 99;
+            position: absolute;
+            text-align: center;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0,0,0,0.5);
+            padding: 5px 0;
+            span {
+                color: grey;
+                font-size: 12px;
+            }
+        }
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

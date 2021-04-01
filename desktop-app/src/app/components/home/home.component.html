@@ -1,3 +1,9 @@
 <div class="main">
-    <p>Home works</p>
+    <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
+        <div class="song-info">
+            <p>{{song.name}}</p>
+            <span>{{song.artist}}</span>
+        </div>
+        <img src="{{song.imageUrl}}" />
+    </div>
 </div>

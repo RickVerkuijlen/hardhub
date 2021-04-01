@@ -1,4 +1,4 @@
-package nl.rickverkuijlen.hardhub;
+package nl.rickverkuijlen.hardhub.controller;
 
 import java.io.File;
 import java.io.InputStream;

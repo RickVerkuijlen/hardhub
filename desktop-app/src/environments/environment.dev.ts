@@ -1,4 +1,5 @@
-export const AppConfig = {
+export const environment = {
   production: false,
+  baseUrl: "http://localhost/",
   environment: 'DEV'
 };

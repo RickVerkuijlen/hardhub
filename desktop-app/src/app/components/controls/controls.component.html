@@ -1,11 +1,12 @@
 <div class="controls" id="thumbnail">
     <mat-toolbar color="primary">
+        <p>{{currentSong.artist}} - {{currentSong.name}}</p>
         <mat-toolbar-row class="media-action-bar">
             <!-- <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
                 <mat-icon mat-list-icon>skip_previous</mat-icon>
             </button> -->
-            <fa-icon [icon]="faPlayCircle" (click)="openFile()" [disabled]="state?.error" *ngIf="!state?.playing"></fa-icon>
-            <fa-icon [icon]="faPauseCircle" (click)="pause()" [disabled]="state?.error" *ngIf="state?.playing"></fa-icon>
+            <fa-icon [icon]="faPlayCircle" (click)="play()" *ngIf="!state?.playing"></fa-icon>
+            <fa-icon [icon]="faPauseCircle" (click)="pause()" *ngIf="state?.playing"></fa-icon>
             <!-- <button  mat-button [disabled]="isLastPlaying()" (click)="next()">
                 <mat-icon mat-list-icon>skip_next</mat-icon>
             </button> -->
