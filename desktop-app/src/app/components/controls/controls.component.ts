@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { StreamState } from '../../interfaces/stream-state';
 import { AudioService } from '../../services/audio.service';
 import { RequestService } from '../../services/request.service';
-import { faPlayCircle, faPauseCircle } from'@fortawesome/free-solid-svg-icons'
+import { faPlayCircle, faPauseCircle, faVolumeUp, faVolumeDown } from'@fortawesome/free-solid-svg-icons'
 import { Song } from '../../interfaces/song';
 import { environment } from '../../../environments/environment'
+import { EventEmitter } from 'events';
 
 @Component({
   selector: 'app-controls',
@@ -16,31 +17,33 @@ export class ControlsComponent implements OnInit {
   public state: StreamState;
   public audioSource: string;
   public currentSong: Song;
-
-  private thumbnail;
+  public thumbnail;
 
   faPlayCircle = faPlayCircle;
   faPauseCircle = faPauseCircle;
+  faVolumeUp = faVolumeUp;
+  faVolumeDown = faVolumeDown;
 
   constructor(private audio: AudioService, private request: RequestService) { 
     this.currentSong = JSON.parse(localStorage.getItem("currentSong"));
-    this.request.getSong(this.currentSong.songUrl).subscribe((data: Blob) => {
-      this.audioSource = URL.createObjectURL(data);
-    });
+    // this.request.getSong(this.currentSong.songUrl).subscribe((data: Blob) => {
+    //   this.audioSource = URL.createObjectURL(data);
+    // });
     this.audio.getState().subscribe(state => {
       this.state = state;
     });
   }
 
   ngOnInit(): void {
-    this.thumbnail = document.getElementById('thumbnail');
-    this.thumbnail.style.backgroundImage = "url('"+ this.currentSong.imageUrl + "')";
+    // this.thumbnail = document.getElementById('thumbnail');
+    
   }
 
-  playStream(url: string) {
-    console.log(this.currentSong);
-    this.audio.playStream(url).subscribe(events => {
-      
+  playStream(file: Song) {
+    console.log(this.currentSong.imageUrl);
+    this.thumbnail = this.currentSong.imageUrl;
+    this.audio.playStream(file).subscribe(events => {
+        console.log(events);
     });
     
   }
@@ -48,7 +51,7 @@ export class ControlsComponent implements OnInit {
   openFile(file: Song): void {
     this.currentSong = file;    
     this.audio.stop();
-    this.playStream(file.songUrl);
+    this.playStream(file);
   }
 
   pause(): void {
@@ -64,6 +67,7 @@ export class ControlsComponent implements OnInit {
   }
 
   onSliderChangeEnd(change: any) {
+    console.log(change.value);
     this.audio.seekTo(change.value);
   }
 

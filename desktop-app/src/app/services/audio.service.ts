@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { StreamState } from '../interfaces/stream-state';
+import { Song } from '../interfaces/song';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +31,12 @@ export class AudioService {
     currentTime: undefined,
     canplay: false,
     error: false,
+    artistName: '',
+    songName: '',
+    thumbnailUrl: ''
   }
+
+  currentSong: Song;
 
   private stateChange: BehaviorSubject<StreamState> = new BehaviorSubject(this.state);
 
@@ -66,8 +73,9 @@ export class AudioService {
     });
   }
 
-  playStream(url: string) {
-    return this.streamObservable(url);
+  playStream(song: Song) {
+    this.currentSong = song;
+    return this.streamObservable(song.songUrl);
   }
 
   play(): void {
@@ -86,7 +94,7 @@ export class AudioService {
     this.audioObj.currentTime = seconds;
   }
 
-  formatTime(time: number, format: string = "HH:mm:ss"): string {
+  formatTime(time: number, format: string = "mm:ss"): string {
     const momentTime = time * 1000;
     return moment.utc(momentTime).format(format);
   }
@@ -100,6 +108,9 @@ export class AudioService {
         break;
       case "playing":
         this.state.playing = true;
+        this.state.artistName = this.currentSong.artist;
+        this.state.songName = this.currentSong.name;
+        this.state.thumbnailUrl = this.currentSong.imageUrl;
         break;
       case "pause":
         this.state.playing = false;
@@ -126,7 +137,10 @@ export class AudioService {
       duration: undefined,
       currentTime: undefined,
       canplay: false,
-      error: false
+      error: false,
+      artistName: '',
+      songName: '',
+      thumbnailUrl: ''
     };
   }
 

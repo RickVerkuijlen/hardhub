@@ -1,4 +1,18 @@
 ::ng-deep .controls { 
+    #song-info {
+        position: absolute;
+        padding: 15px;
+        background-color: rgba(0,0,0,0.5);
+        border-bottom-right-radius: 15px;
+        span {
+            display: block;
+            font-weight: bold;
+            &:nth-last-child(1) {
+                font-size: 12px;
+                color: #a06800;
+            }
+        }
+    }
     .time-slider {
         width: 100% !important;
         margin-left: 20px;
@@ -13,19 +27,30 @@
         }
     }
     .media-action-bar {
-    width: 100%;
-    margin: 5px;
-    justify-content: center;
-    .ng-fa-icon {
-        font-size: 35px;
-        &:hover {
-            cursor: pointer;
+        width: 100%;
+        margin: 5px;
+        justify-content: center;
+        .ng-fa-icon {
+            font-size: 35px;
+            &:hover {
+                cursor: pointer;
+                svg {
+                    path {
+                        color: orange;
+                    }
+                }
+            }
+        }
+    }
+    #volume {
+        position: absolute;
+        right: 0;
+        fa-icon {
             svg {
                 path {
                     color: orange;
                 }
             }
         }
-    }
     }
 }

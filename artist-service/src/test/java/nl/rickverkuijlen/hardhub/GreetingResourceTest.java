@@ -10,11 +10,11 @@ import static org.hamcrest.CoreMatchers.is;
 @QuarkusTest
 public class GreetingResourceTest {
 
-    @Disabled
     @Test
+    @Disabled
     public void testHelloEndpoint() {
         given()
-          .when().get("/music")
+          .when().get("/hello-resteasy")
           .then()
              .statusCode(200)
              .body(is("Hello RESTEasy"));

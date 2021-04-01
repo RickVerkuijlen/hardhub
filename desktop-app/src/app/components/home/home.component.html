@@ -1,9 +1,13 @@
 <div class="main">
-    <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
-        <div class="song-info">
-            <p>{{song.name}}</p>
-            <span>{{song.artist}}</span>
+    <h1>{{ 'PAGES.HOME.RECOMMENDED' | translate }}</h1>
+    <div class="first-row scrollable">
+        <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
+            <div class="song-info">
+                <p>{{song.name}}</p>
+                <span>{{song.artist}}</span>
+            </div>
+            <img src="{{song.imageUrl}}" />
         </div>
-        <img src="{{song.imageUrl}}" />
     </div>
+    <h1>{{ 'PAGES.HOME.ARTISTS' | translate }}</h1>
 </div>

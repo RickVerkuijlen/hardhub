@@ -15,11 +15,19 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSKUE2R67O
-      AWS_SECRET_ACCESS_KEY: LNQwbSM/X271PFZP+8g+SSLmPJKeycdiFMs+yjHs
-      AWS_SESSION_TOKEN: FwoGZXIvYXdzEGoaDAsSh6XyVP/DTBcpACLOAXARKitHESX3uXGn/sPQN1R2bwclYdGwC63+PuUnv7rUjb8seLfEgM1O0tBRcoL8j1CDsT0PtCTy3yXEZzw6LaBdGasiyJyak9wx8+Xnh+Y6wBBDccRJ4W2fF3E+lvWR0km1EZvv5od/HQcob/Wl73lL4WOOkBFXYA12SaPcV2LhMXiJyLC1/GtLuWJ1yzg2RN9poTna4YBkPNpxTKBOqmdDXf+ZSVidVcrG+qZM8vvUm3eGuVGoAhMBf9LX+LeKnf/NKpY3hzAsxrDC2HrYKLuEloMGMi2I9VBoX36coIRf+4HrsF4ZJVsowuJZrGB+gwq62B/nBw0EiyaUHUna8SXez2k=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSEUKLPFUH
+      AWS_SECRET_ACCESS_KEY: GANcW5c7elNSvF7yfBh9mB4Bii9hAyq04oyWyPTg
+      AWS_SESSION_TOKEN: FwoGZXIvYXdzEHEaDEJbKgZ0EbWh/rMQRyLOAQs9+XDg4joyKL16CgHPs2xXENXn633bkisA99cJtbI1cUoMCPdi+yctl8qhmkBPaujbbf+hMhGLwb+pLWorR5TQz0rubzl+MWWspi1a5RTedwvBusI83XZVltO7JntNyAj11HPMsEktl7k1OxWyqWg5NvHSc9YIoAtH1aswUX2/KsxqGH80snr1J9wHBNupq7Z1XcySmYS5jRhqGyyLwbtSuZMRD/oCyeVAfzPSrmMgIG/C5gqdp5AZPjLLAS2G4O9H8ehmvY0IlAhoRvD1KJLPl4MGMi1DQqNjRMABEqWKvaNCwcQYHGK/wU8CpGUctph4sABTmIRhR9vDRZQWn78cTws=
     ports:
       - 8080:80
+    restart: on-failure
+
+  artist-service:
+    build:
+      context: artist-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    ports:
+      - 8081:80
     restart: on-failure
 
   database:

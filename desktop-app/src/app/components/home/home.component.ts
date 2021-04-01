@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
 import { environment } from '../../../environments/environment';
 import { faPlayCircle } from'@fortawesome/free-solid-svg-icons'
 import { AudioService } from '../../services/audio.service';
+import { ControlsComponent } from '../controls/controls.component';
+import { switchMap } from 'rxjs/operators';
+import { TranslateService } from '@ngx-translate/core';
 
 
 @Component({
@@ -16,29 +19,28 @@ export class HomeComponent implements OnInit {
   public song: Song;
   public allSongs: Song[];
 
+  private _baseUrl = environment.baseUrl;
+
+  @ViewChild(ControlsComponent) thumbnail: ControlsComponent;
+
   faPlayCircle = faPlayCircle;
 
-  constructor(private songService: SongService, private audioService: AudioService) { }
+  constructor(private songService: SongService, private audioService: AudioService, public translate: TranslateService) { }
 
   ngOnInit(): void {
-    this.songService.getAllSongs().subscribe((data: Song[]) => {
+    this.songService.getAllSongs()
+    .subscribe((data: Song[]) => {
       data.forEach(element => {
-        element.imageUrl = environment.baseUrl + "music/" + element.imageUrl.replace(/\//g, "|")
-        element.songUrl = environment.baseUrl + "music/" + element.songUrl.replace(/\//g, "|")
+        element.imageUrl = this._baseUrl + "/music/" + element.imageUrl;
+        element.songUrl = this._baseUrl + "/music/" + element.songUrl;
       });
-      console.log(data);
       this.allSongs = data;
-      // this.song.imageUrl = data.imageUrl.replace(/\//g, '|');
-      // console.log(data);
-      // localStorage.setItem("currentSong", JSON.stringify(this.song));
-    })
+    });
   }
 
   playSong(song: Song) {
-    console.log(song.songUrl);
     localStorage.setItem("currentSong", JSON.stringify(song))
-    this.audioService.playStream(song.songUrl).subscribe(events => {
-
+    this.audioService.playStream(song).subscribe(events => {
     });
   }
 }

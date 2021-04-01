@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'; 
+import { map, mapTo } from 'rxjs/operators';
+import { Song } from '../interfaces/song';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,7 @@ export class RequestService {
     return this.http.get(url, {responseType: 'blob'});
   }
 
-  getAllSongs(): Observable<Object>{
-    return this.http.get(this._baseUrl + "music/test");
+  getAllSongs(): Observable<Song[]>{
+    return this.http.get<Song[]>(this._baseUrl + "/music/allSongs")
   }
 }

@@ -1,6 +1,9 @@
-<div class="controls" id="thumbnail">
+<div class="controls" id="thumbnail" [ngStyle]="{'backgroundImage': 'url(' + state?.thumbnailUrl + ')'}">
     <mat-toolbar color="primary">
-        <p>{{currentSong.artist}} - {{currentSong.name}}</p>
+        <div id="song-info">
+            <span>{{state?.songName}}</span>
+            <span>{{state?.artistName}}</span>
+        </div>
         <mat-toolbar-row class="media-action-bar">
             <!-- <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
                 <mat-icon mat-list-icon>skip_previous</mat-icon>
@@ -16,5 +19,9 @@
             <mat-slider class="time-slider" (input)="onSliderChangeEnd($event)" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"></mat-slider>
             {{ state?.readableDuration }}
         </mat-toolbar-row>
+        <div id="volume">
+            <fa-icon [icon]="faVolumeDown"></fa-icon>
+            <fa-icon [icon]="faVolumeUp"></fa-icon>
+        </div>
     </mat-toolbar>
 </div>

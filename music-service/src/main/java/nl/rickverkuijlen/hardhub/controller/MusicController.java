@@ -1,6 +1,5 @@
 package nl.rickverkuijlen.hardhub.controller;
 
-import lombok.Getter;
 import nl.rickverkuijlen.hardhub.S3.FileObject;
 import nl.rickverkuijlen.hardhub.logic.MusicLogic;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
@@ -14,13 +13,10 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.StreamingOutput;
+import javax.ws.rs.core.*;
 import java.io.ByteArrayOutputStream;
 import java.util.Comparator;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Path("/music")
@@ -31,11 +27,14 @@ public class MusicController extends CommonResource {
     @Inject
     MusicLogic musicLogic;
 
+    @Inject
+    UriInfo uriInfo;
+
     @GET
-    @Path("{path}")
+    @Path("{path:.+}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam String path) {
-        path = path.replace("|", "/");
+        System.out.println(path);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         GetObjectResponse object = s3.getObject(buildGetRequest(path), ResponseTransformer.toOutputStream(baos));
@@ -47,9 +46,10 @@ public class MusicController extends CommonResource {
     }
 
     @GET
-    @Path("test")
+    @Path("allSongs")
     public Response getAllSongs() {
         Response.ResponseBuilder response = Response.ok(musicLogic.getAll());
+
         response.header("Content-Type", "application/json");
         return response.build();
     }
