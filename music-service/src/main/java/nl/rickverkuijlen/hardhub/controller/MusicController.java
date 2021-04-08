@@ -2,6 +2,7 @@ package nl.rickverkuijlen.hardhub.controller;
 
 import nl.rickverkuijlen.hardhub.S3.FileObject;
 import nl.rickverkuijlen.hardhub.logic.MusicLogic;
+import nl.rickverkuijlen.hardhub.model.Music;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
@@ -27,14 +28,10 @@ public class MusicController extends CommonResource {
     @Inject
     MusicLogic musicLogic;
 
-    @Inject
-    UriInfo uriInfo;
-
     @GET
     @Path("{path:.+}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam String path) {
-        System.out.println(path);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         GetObjectResponse object = s3.getObject(buildGetRequest(path), ResponseTransformer.toOutputStream(baos));
@@ -48,7 +45,20 @@ public class MusicController extends CommonResource {
     @GET
     @Path("allSongs")
     public Response getAllSongs() {
-        Response.ResponseBuilder response = Response.ok(musicLogic.getAll());
+        List<Music> allSongs = musicLogic.getAll();
+
+        allSongs.forEach(m -> {
+            Link link = Link.fromUri(gatewayEndpoint + "/music/" + m.getId()).rel("self").build();
+            m.addLink(link);
+            Link artist = Link.fromUri(gatewayEndpoint + "/artist/" + m.getArtistId()).rel("artist").build();
+            m.addLink(artist);
+            Link song = Link.fromUri(gatewayEndpoint + "/music/" + m.getSongId()).rel("song").build();
+            m.addLink(song);
+            Link image = Link.fromUri(gatewayEndpoint + "/music/" + m.getImageId()).rel("image").build();
+            m.addLink(image);
+        });
+
+        Response.ResponseBuilder response = Response.ok(allSongs);
 
         response.header("Content-Type", "application/json");
         return response.build();

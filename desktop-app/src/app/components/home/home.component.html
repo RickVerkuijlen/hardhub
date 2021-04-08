@@ -4,9 +4,9 @@
         <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
             <div class="song-info">
                 <p>{{song.name}}</p>
-                <span>{{song.artist}}</span>
+                <span>{{song.artist.name}}</span>
             </div>
-            <img src="{{song.imageUrl}}" />
+            <img src="{{song.imageId}}" />
         </div>
     </div>
     <h1>{{ 'PAGES.HOME.ARTISTS' | translate }}</h1>

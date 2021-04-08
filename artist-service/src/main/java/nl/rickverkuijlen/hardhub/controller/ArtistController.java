@@ -8,7 +8,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
-@Path("/")
+@Path("/artist")
 public class ArtistController {
 
     @Inject
@@ -17,12 +17,14 @@ public class ArtistController {
     @GET
     @Path("{artistId}")
     public Response getArtist(@PathParam("artistId") String artistId) {
+        System.out.println(artistId);
         Response.ResponseBuilder response = Response.ok(artistLogic.get(Integer.parseInt(artistId)));
         return response.build();
     }
 
     @GET
     public Response getAllArtists() {
+        System.out.println("getAllArtists");
         Response.ResponseBuilder response = Response.ok(artistLogic.getAll());
         return response.build();
     }

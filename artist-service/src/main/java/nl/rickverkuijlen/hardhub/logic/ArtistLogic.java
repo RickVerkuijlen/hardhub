@@ -13,6 +13,6 @@ public class ArtistLogic {
     }
 
     public Artist get(int id) {
-        return Artist.findById(id);
+        return Artist.find("id", id).firstResult();
     }
 }

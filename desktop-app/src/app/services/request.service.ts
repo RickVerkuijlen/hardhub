@@ -19,6 +19,10 @@ export class RequestService {
   }
 
   getAllSongs(): Observable<Song[]>{
-    return this.http.get<Song[]>(this._baseUrl + "/music/allSongs")
+    return this.http.get<Song[]>(this._baseUrl + "/music/allSongs");
+  }
+
+  getLinkData<T>(url: string) {
+    return this.http.get<T>(url);
   }
 }

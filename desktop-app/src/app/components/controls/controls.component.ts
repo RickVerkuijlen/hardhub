@@ -40,8 +40,8 @@ export class ControlsComponent implements OnInit {
   }
 
   playStream(file: Song) {
-    console.log(this.currentSong.imageUrl);
-    this.thumbnail = this.currentSong.imageUrl;
+    console.log(this.currentSong.imageId);
+    this.thumbnail = this.currentSong.imageId;
     this.audio.playStream(file).subscribe(events => {
         console.log(events);
     });

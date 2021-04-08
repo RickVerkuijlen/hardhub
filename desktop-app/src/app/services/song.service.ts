@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { forkJoin, Observable } from 'rxjs';
+import { map, mergeMap, take, toArray } from 'rxjs/operators';
+import { Artist } from '../interfaces/artist';
+import { Song } from '../interfaces/song';
 import { RequestService } from './request.service';
 
 @Injectable({
@@ -7,11 +10,24 @@ import { RequestService } from './request.service';
 })
 export class SongService {
 
+  private artist: Artist;
+
   constructor(private request: RequestService) { }
 
-  public getAllSongs(): Observable<Object> {
-    return this.request.getAllSongs();
+  public getAllSongs(): Observable<any> {
+    return this.request.getAllSongs()
+    .pipe(
+      mergeMap((asIs: Song[]) => asIs),
+      map((song: Song) => ({
+        ...song,
+        songId: song.links.find(k => k.params.rel == "song").uri,
+        imageId: song.links.find(k => k.params.rel == "image").uri
+      })),
+      toArray()
+    )
   }
 
-  // public getSong()
+  public getArtist(url: string): Observable<Artist> {
+    return this.request.getLinkData(url);
+  }
 }

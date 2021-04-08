@@ -30,10 +30,12 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.songService.getAllSongs()
     .subscribe((data: Song[]) => {
-      data.forEach(element => {
-        element.imageUrl = this._baseUrl + "/music/" + element.imageUrl;
-        element.songUrl = this._baseUrl + "/music/" + element.songUrl;
-      });
+      data.forEach((song: Song) => {
+        this.songService.getArtist(song.links.find(x => x.params.rel == "artist").uri)
+        .subscribe(artist => {
+          song.artist = artist;
+        })
+      })
       this.allSongs = data;
     });
   }

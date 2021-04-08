@@ -75,7 +75,7 @@ export class AudioService {
 
   playStream(song: Song) {
     this.currentSong = song;
-    return this.streamObservable(song.songUrl);
+    return this.streamObservable(song.songId);
   }
 
   play(): void {
@@ -108,9 +108,9 @@ export class AudioService {
         break;
       case "playing":
         this.state.playing = true;
-        this.state.artistName = this.currentSong.artist;
+        this.state.artistName = this.currentSong.artist.name;
         this.state.songName = this.currentSong.name;
-        this.state.thumbnailUrl = this.currentSong.imageUrl;
+        this.state.thumbnailUrl = this.currentSong.imageId;
         break;
       case "pause":
         this.state.playing = false;

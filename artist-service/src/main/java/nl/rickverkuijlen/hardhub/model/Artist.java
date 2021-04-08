@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
+import javax.persistence.Id;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -16,6 +18,7 @@ import org.bson.codecs.pojo.annotations.BsonProperty;
 public class Artist extends PanacheMongoEntity {
 
     @BsonProperty("id")
+    @Id
     private int id;
     private String name;
 
