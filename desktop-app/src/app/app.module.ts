@@ -23,6 +23,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
+import { ArtistComponent } from './components/artist/artist.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -30,7 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 }
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FriendsComponent, HomeComponent, ControlsComponent],
+  declarations: [AppComponent, MenuComponent, FriendsComponent, HomeComponent, ControlsComponent, ArtistComponent],
   imports: [
     BrowserModule,
     FormsModule,

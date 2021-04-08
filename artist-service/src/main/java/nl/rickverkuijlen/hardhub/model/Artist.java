@@ -2,13 +2,13 @@ package nl.rickverkuijlen.hardhub.model;
 
 import io.quarkus.mongodb.panache.MongoEntity;
 import io.quarkus.mongodb.panache.PanacheMongoEntity;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
 import javax.persistence.Id;
+import javax.ws.rs.core.Link;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -21,5 +21,13 @@ public class Artist extends PanacheMongoEntity {
     @Id
     private int id;
     private String name;
+    private String imageId;
+
+    @Setter(AccessLevel.NONE)
+    private List<Link> links = new ArrayList<>();
+
+    public void addLink(Link link) {
+        links.add(link);
+    }
 
 }

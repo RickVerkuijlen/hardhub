@@ -19,9 +19,6 @@ abstract public class CommonResource {
     @ConfigProperty(name = "bucket.name")
     String bucketName;
 
-    @ConfigProperty(name = "gateway.endpoint")
-    String gatewayEndpoint;
-
     protected PutObjectRequest buildPutRequest(FormData formData) {
         return PutObjectRequest.builder()
                 .bucket(bucketName)

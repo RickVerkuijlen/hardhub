@@ -45,24 +45,13 @@ public class MusicController extends CommonResource {
     @GET
     @Path("allSongs")
     public Response getAllSongs() {
-        List<Music> allSongs = musicLogic.getAll();
-
-        allSongs.forEach(m -> {
-            Link link = Link.fromUri(gatewayEndpoint + "/music/" + m.getId()).rel("self").build();
-            m.addLink(link);
-            Link artist = Link.fromUri(gatewayEndpoint + "/artist/" + m.getArtistId()).rel("artist").build();
-            m.addLink(artist);
-            Link song = Link.fromUri(gatewayEndpoint + "/music/" + m.getSongId()).rel("song").build();
-            m.addLink(song);
-            Link image = Link.fromUri(gatewayEndpoint + "/music/" + m.getImageId()).rel("image").build();
-            m.addLink(image);
-        });
-
-        Response.ResponseBuilder response = Response.ok(allSongs);
+        Response.ResponseBuilder response = Response.ok(musicLogic.getAll());
 
         response.header("Content-Type", "application/json");
         return response.build();
     }
+
+    
 
     @GET
     public List<FileObject> listFiles() {

@@ -1,13 +1,20 @@
 <div class="main">
     <h1>{{ 'PAGES.HOME.RECOMMENDED' | translate }}</h1>
-    <div class="first-row scrollable">
+    <div class="recommended scrollable">
         <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
             <div class="song-info">
                 <p>{{song.name}}</p>
-                <span>{{song.artist.name}}</span>
+                <a routerLink="/artist">{{song.artist.name}}</a>
             </div>
             <img src="{{song.imageId}}" />
         </div>
     </div>
     <h1>{{ 'PAGES.HOME.ARTISTS' | translate }}</h1>
+    <div class="artists scrollable">
+        <div class="artist" *ngFor="let artist of allArtist" [routerLink]="['/artist', artist.id]">
+            <img src="{{artist.imageId}}" />
+            <span>{{artist.name}}</span>
+        </div>
+    </div>
+    <h1>{{ 'PAGES.HOME.PLAYLISTS' | translate }}</h1>
 </div>

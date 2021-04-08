@@ -2,11 +2,12 @@
     "PAGES": {
         "HOME": {
             "RECOMMENDED": "Uitgelicht",
-            "ARTISTS": "Artiesten"
+            "ARTISTS": "Artiesten",
+            "PLAYLISTS": "Afspeellijsten"
         },
-        "DETAIL": {
-            "TITLE": "Detail page !",
-            "BACK_TO_HOME": "Back to Home"
+        "ARTIST": {
+          "FOLLOW": "Volgen",
+          "FOLLOWING": "Volgend"
         }
     }
 }

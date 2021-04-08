@@ -94,6 +94,10 @@ export class AudioService {
     this.audioObj.currentTime = seconds;
   }
 
+  volumeTo(percentage: number): void {
+    this.audioObj.volume = percentage;
+  }
+
   formatTime(time: number, format: string = "mm:ss"): string {
     const momentTime = time * 1000;
     return moment.utc(momentTime).format(format);
@@ -105,12 +109,12 @@ export class AudioService {
         this.state.duration = this.audioObj.duration;
         this.state.readableDuration = this.formatTime(this.state.duration);
         this.state.canplay = true;
-        break;
-      case "playing":
-        this.state.playing = true;
         this.state.artistName = this.currentSong.artist.name;
         this.state.songName = this.currentSong.name;
         this.state.thumbnailUrl = this.currentSong.imageId;
+        break;
+      case "playing":
+        this.state.playing = true;
         break;
       case "pause":
         this.state.playing = false;

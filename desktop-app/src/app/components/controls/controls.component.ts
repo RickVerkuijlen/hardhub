@@ -26,12 +26,14 @@ export class ControlsComponent implements OnInit {
 
   constructor(private audio: AudioService, private request: RequestService) { 
     this.currentSong = JSON.parse(localStorage.getItem("currentSong"));
-    // this.request.getSong(this.currentSong.songUrl).subscribe((data: Blob) => {
-    //   this.audioSource = URL.createObjectURL(data);
-    // });
+    this.request.getSong(this.currentSong.songId).subscribe((data: Blob) => {
+      this.audioSource = URL.createObjectURL(data);
+    });
     this.audio.getState().subscribe(state => {
       this.state = state;
     });
+    this.playStream(this.currentSong)
+    this.pause();
   }
 
   ngOnInit(): void {
@@ -42,16 +44,8 @@ export class ControlsComponent implements OnInit {
   playStream(file: Song) {
     console.log(this.currentSong.imageId);
     this.thumbnail = this.currentSong.imageId;
-    this.audio.playStream(file).subscribe(events => {
-        console.log(events);
-    });
+    this.audio.playStream(file).subscribe(events => {});
     
-  }
-
-  openFile(file: Song): void {
-    this.currentSong = file;    
-    this.audio.stop();
-    this.playStream(file);
   }
 
   pause(): void {
@@ -66,9 +60,13 @@ export class ControlsComponent implements OnInit {
     this.audio.stop();
   }
 
-  onSliderChangeEnd(change: any) {
+  onTimeSliderChangeEnd(change: any) {
     console.log(change.value);
     this.audio.seekTo(change.value);
+  }
+
+  onVolumeSliderChange(change: any) {
+    this.audio.volumeTo(change.value / 100);
   }
 
 }

@@ -2,7 +2,7 @@
     <mat-toolbar color="primary">
         <div id="song-info">
             <span>{{state?.songName}}</span>
-            <span>{{state?.artistName}}</span>
+            <span routerLink="/artist" style="cursor: pointer">{{state?.artistName}}</span>
         </div>
         <mat-toolbar-row class="media-action-bar">
             <!-- <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
@@ -16,11 +16,12 @@
         </mat-toolbar-row>
         <mat-toolbar-row>
             {{ state?.readableCurrentTime }}
-            <mat-slider class="time-slider" (input)="onSliderChangeEnd($event)" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"></mat-slider>
+            <mat-slider class="time-slider slider" (input)="onTimeSliderChangeEnd($event)" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"></mat-slider>
             {{ state?.readableDuration }}
         </mat-toolbar-row>
         <div id="volume">
             <fa-icon [icon]="faVolumeDown"></fa-icon>
+            <mat-slider class="volume-slider slider" (input)="onVolumeSliderChange($event)" min="0" [max]="100" step="1" [value]="100"></mat-slider>
             <fa-icon [icon]="faVolumeUp"></fa-icon>
         </div>
     </mat-toolbar>

@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'; 
 import { map, mapTo } from 'rxjs/operators';
 import { Song } from '../interfaces/song';
+import { Artist } from '../interfaces/artist';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,13 @@ export class RequestService {
 
   getLinkData<T>(url: string) {
     return this.http.get<T>(url);
+  }
+
+  getAllArtists(): Observable<Artist[]> {
+    return this.http.get<Artist[]>(this._baseUrl + "/artist");
+  }
+
+  getArtistById(id: number): Observable<Artist> {
+    return this.http.get<Artist>(this._baseUrl + "/artist/" + id);
   }
 }

@@ -2,11 +2,12 @@
   "PAGES": {
     "HOME": {
       "RECOMMENDED": "Recommended",
-      "ARTISTS": "Artists"
+      "ARTISTS": "Artists",
+      "PLAYLISTS": "Playlists"
     },
-    "DETAIL": {
-      "TITLE": "Detail page !",
-      "BACK_TO_HOME": "Back to Home"
+    "ARTIST": {
+      "FOLLOW": "Follow",
+      "FOLLOWING": "Following"
     }
   }
 }

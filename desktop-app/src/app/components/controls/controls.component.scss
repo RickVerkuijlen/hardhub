@@ -17,6 +17,9 @@
         width: 100% !important;
         margin-left: 20px;
         margin-right: 20px;
+        
+    }
+    .slider {
         .mat-slider-wrapper {
             .mat-slider-track-wrapper {
                 background-color: white !important;
@@ -45,6 +48,7 @@
     #volume {
         position: absolute;
         right: 0;
+        padding: 5px;
         fa-icon {
             svg {
                 path {

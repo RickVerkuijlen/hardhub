@@ -1,12 +1,10 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
-import { environment } from '../../../environments/environment';
-import { faPlayCircle } from'@fortawesome/free-solid-svg-icons'
 import { AudioService } from '../../services/audio.service';
-import { ControlsComponent } from '../controls/controls.component';
-import { switchMap } from 'rxjs/operators';
+import { ArtistService } from '../../services/artist.service';
 import { TranslateService } from '@ngx-translate/core';
+import { Artist } from '../../interfaces/artist';
 
 
 @Component({
@@ -18,14 +16,9 @@ export class HomeComponent implements OnInit {
 
   public song: Song;
   public allSongs: Song[];
+  public allArtist: Artist[];
 
-  private _baseUrl = environment.baseUrl;
-
-  @ViewChild(ControlsComponent) thumbnail: ControlsComponent;
-
-  faPlayCircle = faPlayCircle;
-
-  constructor(private songService: SongService, private audioService: AudioService, public translate: TranslateService) { }
+  constructor(private songService: SongService, private artistService: ArtistService, private audioService: AudioService, public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.songService.getAllSongs()
@@ -36,8 +29,15 @@ export class HomeComponent implements OnInit {
           song.artist = artist;
         })
       })
+      console.log(data);
       this.allSongs = data;
     });
+
+    this.artistService.getAllArtists()
+    .subscribe((data: Artist[]) => {
+      console.log(data);
+      this.allArtist = data;
+    })
   }
 
   playSong(song: Song) {
