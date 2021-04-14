@@ -9,6 +9,33 @@ services:
       - music-service
     ports:
       - 80:80
+  
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+
+  keycloak:
+      image: jboss/keycloak:latest
+      environment:
+        DB_VENDOR: MYSQL
+        DB_ADDR: mysql
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
+        #JDBC_PARAMS: "connectTimeout=30000"
+      ports:
+        - 8080:8080
+      depends_on:
+        - mysql
 
   music-service:
     build:
@@ -19,7 +46,7 @@ services:
       AWS_SECRET_ACCESS_KEY: ZqTpCCKWjog1t1J+Wg1y8mmypPGLj5A23qt/NsnN
       AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEAQaCXVzLXdlc3QtMiJHMEUCIHzG/tLi7wx8Ecp64ARON754EFXCHt25m4QcGA2dSpPoAiEAt9T01t9GXesdShy7mu7UONAqU6WQPNSmCyzWG4gRcGwqtwIIXRAAGgw0NTIxODYwMzQ1MzIiDDOZV4HtQmr2gFE9LCqUAn/8c/DxXUdgv7cfk/3npjKG8D8GyDQmjubDMlqIPuMy52Vn3beI273WSyhnVGfIEaUutFE5oDKK6xAuCzrbl7gVGhO/pjL4wD/wIGlOYco+5ocIxAp6NiRvb6OU5InqhoenVRyKOVSar5qVRkqbIjNcA39rEXMWpow4pbs/GZEV/lP27wivQuoU7dM5f6VcVGEkbqFnRIHSlnLw+sR2W8KOGRQrWppyz43RNcxQqSlTjRbV03tEGcys/IpcKqalRkLzxAoBq8Zn0SHo/4ekdab7oG+tqu1falcy+WdQf5ymImigIG4cxZLLuVd93CVRtn+MPeCgZJ6XVfTItOT/wEgrPVNc849h8q6f16gz+kzJhw1uBTD937uDBjqdAUhrmP7rD/s6hDhA4AKunAwgxnnrcz1jGK2A7tH4QFRAcgZg0sE9BmYZ+vPewJi/lR0dHBHibhT+amaG81Ic4C/Kug1ofSjWTKLfV/EHJYlKTpC/rOmbLz6fQxpYzh5RrQBaT7KibwcynjEvy10uzaF/0ThYfnzFLKMAKVn9uQZ2ktYiM8dwaDJCZs7itkxXz3sw8nr5mFBKUQ68wDM=
     ports:
-      - 8080:80
+      - 8081:80
     restart: on-failure
 
   artist-service:
@@ -27,7 +54,7 @@ services:
       context: artist-service
       dockerfile: src/main/docker/Dockerfile.jvm
     ports:
-      - 8081:80
+      - 8082:80
     restart: on-failure
 
   database:
@@ -42,3 +69,5 @@ services:
       - mongodb_data_container:/data/db
 volumes:
   mongodb_data_container:
+  mysql_data:
+      driver: local
