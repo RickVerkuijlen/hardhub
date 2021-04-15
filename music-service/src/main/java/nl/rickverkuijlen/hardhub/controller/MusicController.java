@@ -43,6 +43,24 @@ public class MusicController extends CommonResource {
     }
 
     @GET
+    @Path("id/{id}")
+    public Response getSongById(@PathParam String id) {
+        Response.ResponseBuilder response = Response.ok(musicLogic.get(Integer.parseInt(id)));
+
+        response.header("Content-Type", "application/json");
+        return response.build();
+    }
+
+    @GET
+    @Path("artist/{id}")
+    public Response getSongsByArtistId(@PathParam String id) {
+        Response.ResponseBuilder response = Response.ok(musicLogic.getAllFromArtistId(Integer.parseInt(id)));
+
+        response.header("Content-Type", "application/json");
+        return response.build();
+    }
+
+    @GET
     @Path("allSongs")
     public Response getAllSongs() {
         Response.ResponseBuilder response = Response.ok(musicLogic.getAll());

@@ -5,6 +5,7 @@ import { FriendsComponent } from './components/friends/friends.component';
 import { HomeComponent } from './components/home/home.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { PageNotFoundComponent } from './shared/components';
+import { AuthGuard } from './guard/AuthGuard';
 
 const routes: Routes = [
   {
@@ -13,7 +14,9 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'home', component: HomeComponent
+    path: 'home', 
+    component: HomeComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'artist/:id',

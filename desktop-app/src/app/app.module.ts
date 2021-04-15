@@ -1,11 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 
 import { AppRoutingModule } from './app-routing.module';
+
+import { KeycloakAngularModule, KeycloakOptions, KeycloakService } from 'keycloak-angular';
+import { AuthService } from './services/auth.service';
 
 // NG Translate
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -24,10 +27,19 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatCardModule } from '@angular/material/card';
 import { ArtistComponent } from './components/artist/artist.component';
+import { environment } from '../environments/environment';
+import { AuthGuard } from './guard/AuthGuard';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
+export function initializer(keycloak: KeycloakService): () => Promise<any> {
+  const options: KeycloakOptions = {
+    config: environment.keycloakConfig
+  };
+  return (): Promise<any> => keycloak.init(options);
 }
 
 @NgModule({
@@ -52,9 +64,16 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MatListModule,
     MatIconModule,
     MatToolbarModule,
-    MatCardModule
+    MatCardModule,
+    KeycloakAngularModule
   ],
-  providers: [],
+  providers: [
+    KeycloakService, {
+    provide: APP_INITIALIZER,
+    useFactory: initializer,
+    multi: true,
+    deps: [KeycloakService]
+  }, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

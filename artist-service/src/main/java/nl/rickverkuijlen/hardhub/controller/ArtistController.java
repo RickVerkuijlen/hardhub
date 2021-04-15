@@ -15,7 +15,7 @@ public class ArtistController {
     ArtistLogic artistLogic;
 
     @GET
-    @Path("{artistId}")
+    @Path("id/{artistId}")
     public Response getArtist(@PathParam("artistId") String artistId) {
         System.out.println(artistId);
         Response.ResponseBuilder response = Response.ok(artistLogic.get(Integer.parseInt(artistId)));

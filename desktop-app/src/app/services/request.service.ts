@@ -32,6 +32,6 @@ export class RequestService {
   }
 
   getArtistById(id: number): Observable<Artist> {
-    return this.http.get<Artist>(this._baseUrl + "/artist/" + id);
+    return this.http.get<Artist>(this._baseUrl + "/artist/id/" + id);
   }
 }
