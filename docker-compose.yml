@@ -50,9 +50,9 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSLY4EONUA
-      AWS_SECRET_ACCESS_KEY: dT+ZZaNmo/43BQRg/o9kWbnWqnPem1JDmQmOGIh7
-      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEKf//////////wEaCXVzLXdlc3QtMiJHMEUCIQDEjwZH1b7JXVwQz1eLRWryEhH6lar4tWy47MmWPGLSCgIgUsNJ6a1kLF5dRolnIePtGGib8N+IJ4yVVoa0M4DBDlAqtwIIEBAAGgw0NTIxODYwMzQ1MzIiDHJqNrHN04XzUAIQVSqUArYNn6kEgbQW9zXVYJUPtd+3n9oQzm440aKTosVGiFDIxEga4bgN5uQ7tSrYgjqkSXj5o6ZROVVHq/M1BznKPSxNZGrDbvZI0P4n5bepmhqmH7s0ZcN/PuZUVH1s3rWI55lCB7QyhFeX38BXQD/67UMtJmLevBSGsb/Y4oM4vbjiMvEiaHLA6r7yxTIXLPulmdzfvBfhCSs3xXrrIahkTvjmH4lO3CTfOApye35kfK342mlvlKFpw3zLdp7/iF40PqtJUmrXN9f5FLmB0F1ikRdIkcK1rmLo5J5qgXzy8kJT+0ixqhw4OqRFVTGccs89M7RAt/noYoJbz+VWkCqeB6jsLrHfbODAa6Jul82rQ524v33mpjCHz9+DBjqdAR18Q0EIXILCTwjAG1oxLkAJTF5YiT63sgjWuqrtDxKFSUkoIW36SK47FJMYGNmS/Ta46mE/O7l16+8WBBZckVmvxsAtGfGTjNwGjI06+CrtJbSWIZGxZz2yWi7uBdB1Q5stUV/1AGBrTWXRGPjGCdCew7VfPQe7skSFM9exPCrGwgBPx0BDT2QCRxchoeD48aUsr3mgKWuPX+1QEjI=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSML4L7AW3
+      AWS_SECRET_ACCESS_KEY: Vu9TSeO4heIZPq3Ov+P0QI66KqfEXI/bx6OguCSL
+      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEMv//////////wEaCXVzLXdlc3QtMiJGMEQCID3qvm0zNRQsR0TFrXppeVV96xTjRe8vFUn6uPlMdVxtAiB2Z7yGRN4BucSVNfJMuzPKk3ohOWt96a0XwRaeCKx3dCq3Agg0EAAaDDQ1MjE4NjAzNDUzMiIMAmgpFPTiD+8Kj4gEKpQCauj14B4mmeDNh/mzBrlGnZvutg2toxZkR25L89Vzenduy3bc/4dcq/X9s+2kvGAkETGIizTHkSFVNzQKQ07nZ1UqDfqUyHrnzptQM6xeXcXiqPjdJ0nbaCMTAysEY1Reb56Fp377VwfiDWDS3es5sANJQ1jZFC/+tJ6XvdNqQgUkn71dzkWbOoLLVfoLR4uKjX9nkNj3fHVD1+0ybXJSw/458YFYGh88Wc7lpvVtr9+L+Sexke5BC12a+iEIhy5HSW7+TFuvIrO6Wd3MTg9manTY3So997nloBuicT0+iLUjrLQyZ6IXRiczWgQEkPj+ZujT9tBY+ndZjbiXjrqyREk8QKYkOpKEFH+vp1H/xFh2rRXuMN6t54MGOp4Bov1HJefDsND3srcyp4daJQruIsZSutq8zAlDj9pIIyQTPsa0VOLf8sMOogd3ieeh29961KwljGHLVwcP/uxBgNkt3f6j8dLLm9IuFqlUsDPrR3lAc9xx8h0gHlIe4ZotY8XVqM0Mqvd5X1oYBReD8ELYH1BJ20SqBr0hjlY1d56wtq5lI/N99jXl6EH2wAtwnftzsh9fBZhGSmokmUQ=
     ports:
       - 8081:80
     restart: on-failure
@@ -63,6 +63,14 @@ services:
       dockerfile: src/main/docker/Dockerfile.jvm
     ports:
       - 8082:80
+    restart: on-failure
+
+  playlist-service:
+    build:
+      context: playlist-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    ports:
+      - 8083:80
     restart: on-failure
 
   database:

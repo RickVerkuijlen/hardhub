@@ -2,8 +2,8 @@ package nl.rickverkuijlen.hardhub.controller;
 
 import nl.rickverkuijlen.hardhub.S3.FileObject;
 import nl.rickverkuijlen.hardhub.logic.MusicLogic;
-import nl.rickverkuijlen.hardhub.model.Music;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
+import org.jboss.logging.Logger;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -14,7 +14,9 @@ import javax.inject.Inject;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 import java.io.ByteArrayOutputStream;
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +30,14 @@ public class MusicController extends CommonResource {
     @Inject
     MusicLogic musicLogic;
 
+    @Inject
+    Logger log;
+
     @GET
     @Path("{path:.+}")
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public Response downloadFile(@PathParam String path) {
+        log.info("downloadFile: " + path);
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         GetObjectResponse object = s3.getObject(buildGetRequest(path), ResponseTransformer.toOutputStream(baos));

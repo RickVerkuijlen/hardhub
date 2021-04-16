@@ -9,6 +9,7 @@
   <modules>
     <module>music-service</module>
     <module>artist-service</module>
+    <module>playlist-service</module>
   </modules>
   <properties>
     <compiler-plugin.version>3.8.1</compiler-plugin.version>
@@ -72,6 +73,14 @@
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-oidc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-keycloak-authorization</artifactId>
     </dependency>
     <dependency>
       <groupId>io.rest-assured</groupId>

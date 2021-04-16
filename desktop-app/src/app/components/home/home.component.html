@@ -4,7 +4,7 @@
         <div class="song" *ngFor="let song of allSongs" (click)="playSong(song)">
             <div class="song-info">
                 <p>{{song.name}}</p>
-                <a routerLink="/artist">{{song.artist.name}}</a>
+                <a [routerLink]="['/artist', song.artist.id]">{{song.artist.name}}</a>
             </div>
             <img src="{{song.imageId}}" />
         </div>
