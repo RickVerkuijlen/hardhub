@@ -5,6 +5,6 @@ export const environment = {
   keycloakConfig: {
     url: 'http://localhost:8080/auth',
     realm: 'hardhub',
-    clientId: 'hardhub'
+    clientId: 'hardhub-angular'
   }
 };

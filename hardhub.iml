@@ -10,6 +10,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-hibernate-orm:1.12.2.Final" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-core:1.12.2.Final" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
     <orderEntry type="library" name="Maven: jakarta.enterprise:jakarta.enterprise.cdi-api:2.0.2" level="project" />
     <orderEntry type="library" name="Maven: jakarta.el:jakarta.el-api:3.0.3" level="project" />
     <orderEntry type="library" name="Maven: jakarta.inject:jakarta.inject-api:1.0" level="project" />
@@ -115,6 +116,7 @@
     <orderEntry type="library" name="Maven: io.quarkus.security:quarkus-security:1.1.3.Final" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web:3.9.5" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-web-common:3.9.5" level="project" />
+    <orderEntry type="library" name="Maven: io.vertx:vertx-auth-common:3.9.5" level="project" />
     <orderEntry type="library" name="Maven: io.vertx:vertx-bridge-common:3.9.5" level="project" />
     <orderEntry type="library" name="Maven: io.quarkus:quarkus-resteasy-server-common:1.12.2.Final" level="project" />
     <orderEntry type="library" name="Maven: jakarta.validation:jakarta.validation-api:2.0.2" level="project" />
@@ -210,6 +212,8 @@
     <orderEntry type="library" scope="TEST" name="Maven: io.quarkus:quarkus-devtools-utilities:1.12.2.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.quarkus:quarkus-builder:1.12.2.Final" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.quarkus:quarkus-jsonp-deployment:1.12.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: io.quarkus:quarkus-jsonp:1.12.2.Final" level="project" />
+    <orderEntry type="library" scope="TEST" name="Maven: org.glassfish:jakarta.json:1.1.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.junit.jupiter:junit-jupiter-api:5.7.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.apiguardian:apiguardian-api:1.1.0" level="project" />
@@ -221,29 +225,6 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.thoughtworks.xstream:xstream:1.4.15" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: xmlpull:xmlpull:1.1.3.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: xpp3:xpp3_min:1.1.4c" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-oidc:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-security:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-jsonp:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.glassfish:jakarta.json:1.1.6" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-oidc-common:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-smallrye-jwt-build:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.smallrye:smallrye-jwt-build:2.4.3" level="project" />
-    <orderEntry type="library" name="Maven: io.smallrye:smallrye-jwt:2.4.3" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.microprofile.jwt:microprofile-jwt-auth-api:1.1.1" level="project" />
-    <orderEntry type="library" name="Maven: org.bitbucket.b_c:jose4j:0.7.6" level="project" />
-    <orderEntry type="library" name="Maven: io.smallrye:smallrye-jwt-common:2.4.3" level="project" />
-    <orderEntry type="library" name="Maven: jakarta.annotation:jakarta.annotation-api:1.3.5" level="project" />
-    <orderEntry type="library" name="Maven: io.vertx:vertx-auth-oauth2:3.9.5" level="project" />
-    <orderEntry type="library" name="Maven: io.vertx:vertx-auth-common:3.9.5" level="project" />
-    <orderEntry type="library" name="Maven: io.vertx:vertx-jwt:3.9.5" level="project" />
-    <orderEntry type="library" name="Maven: io.quarkus:quarkus-keycloak-authorization:1.12.2.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-core:12.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-core:12.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-common:12.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcprov-jdk15on:1.68" level="project" />
-    <orderEntry type="library" name="Maven: org.bouncycastle:bcpkix-jdk15on:1.68" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-adapter-spi:12.0.3" level="project" />
-    <orderEntry type="library" name="Maven: org.keycloak:keycloak-authz-client:12.0.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: io.rest-assured:rest-assured:4.3.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy:3.0.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.codehaus.groovy:groovy-xml:3.0.7" level="project" />

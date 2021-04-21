@@ -29,6 +29,7 @@ import { MatCardModule } from '@angular/material/card';
 import { ArtistComponent } from './components/artist/artist.component';
 import { environment } from '../environments/environment';
 import { AuthGuard } from './guard/AuthGuard';
+import { ContextMenuComponent } from './components/context-menu/context-menu.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -43,7 +44,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
 }
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, FriendsComponent, HomeComponent, ControlsComponent, ArtistComponent],
+  declarations: [AppComponent, MenuComponent, FriendsComponent, HomeComponent, ControlsComponent, ArtistComponent, ContextMenuComponent],
   imports: [
     BrowserModule,
     FormsModule,

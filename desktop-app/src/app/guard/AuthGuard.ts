@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
+import jwt_decode  from 'jwt-decode';
+import { User } from '../interfaces/user';
 
 @Injectable({
     providedIn: 'root'
@@ -20,6 +22,17 @@ export class AuthGuard extends KeycloakAuthGuard {
             redirectUri: window.location.origin + state.url,
           });
         }
+        let temp = await this.keycloakAngular.getToken();
+        console.log(temp);
+        var decoded: any = jwt_decode(temp);
+        console.log(decoded);
+
+        const user: User = {
+          name: decoded.name,
+          email: decoded.email,
+          jwt: temp
+        }
+        localStorage.setItem('user', JSON.stringify(user));
     
         // Get the roles required from the route.
         const requiredRoles = route.data.roles;

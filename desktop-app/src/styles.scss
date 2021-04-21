@@ -37,3 +37,13 @@ div.controls {
   right: 12%;
   height: 100px;
 }
+
+img.loading {
+  width: 100px !important;
+  height: 35px !important;
+  top: 50% !important;
+  left: 50% !important;
+  position: absolute !important;
+  margin-top: -50px !important;
+  margin-left: -50px !important;
+}

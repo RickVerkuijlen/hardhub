@@ -50,12 +50,14 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSML4L7AW3
-      AWS_SECRET_ACCESS_KEY: Vu9TSeO4heIZPq3Ov+P0QI66KqfEXI/bx6OguCSL
-      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEMv//////////wEaCXVzLXdlc3QtMiJGMEQCID3qvm0zNRQsR0TFrXppeVV96xTjRe8vFUn6uPlMdVxtAiB2Z7yGRN4BucSVNfJMuzPKk3ohOWt96a0XwRaeCKx3dCq3Agg0EAAaDDQ1MjE4NjAzNDUzMiIMAmgpFPTiD+8Kj4gEKpQCauj14B4mmeDNh/mzBrlGnZvutg2toxZkR25L89Vzenduy3bc/4dcq/X9s+2kvGAkETGIizTHkSFVNzQKQ07nZ1UqDfqUyHrnzptQM6xeXcXiqPjdJ0nbaCMTAysEY1Reb56Fp377VwfiDWDS3es5sANJQ1jZFC/+tJ6XvdNqQgUkn71dzkWbOoLLVfoLR4uKjX9nkNj3fHVD1+0ybXJSw/458YFYGh88Wc7lpvVtr9+L+Sexke5BC12a+iEIhy5HSW7+TFuvIrO6Wd3MTg9manTY3So997nloBuicT0+iLUjrLQyZ6IXRiczWgQEkPj+ZujT9tBY+ndZjbiXjrqyREk8QKYkOpKEFH+vp1H/xFh2rRXuMN6t54MGOp4Bov1HJefDsND3srcyp4daJQruIsZSutq8zAlDj9pIIyQTPsa0VOLf8sMOogd3ieeh29961KwljGHLVwcP/uxBgNkt3f6j8dLLm9IuFqlUsDPrR3lAc9xx8h0gHlIe4ZotY8XVqM0Mqvd5X1oYBReD8ELYH1BJ20SqBr0hjlY1d56wtq5lI/N99jXl6EH2wAtwnftzsh9fBZhGSmokmUQ=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSF5A4XYTQ
+      AWS_SECRET_ACCESS_KEY: +Rw6VaGDUmVz2NNtK9l96+KVioPq39ozaWOod/mq
+      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEDgaCXVzLXdlc3QtMiJIMEYCIQCVPofcI0NNcm2KBUaHHFv8nO1h2ZxLWZ3itoe6tiHT2gIhAOMWTjChlbFu+sGWzHI/NOMshIEk8tAtdadj3ubhaA2LKsACCKH//////////wEQABoMNDUyMTg2MDM0NTMyIgw33sTvJH9xKABob54qlAIM2G1kb+xjR09CiDlvCNBtCemVpSUSqaPn2oz5lH1IZloLJkXy5fiuYuIAWVvwXYrarclLDfOPLvW+wqLPZgltP+ULWmJCuyzB265+IQMcbq+Jrqg/QvBCj2+trvYGy/rADehfOmnT5kzUZSnMPyO2J/N4bw+Vex7k7N9QPQ1UuqgvZkImtPn6wS+5hKL9KPLOyw6t/Vs+bNl/y1qqEDoP3G5hHFhi+mg2wLoELDUBd4oTdKtXHiloyo38mMhi9m1Mtv4Di8txu4dMU+F+JyvJ98L3SiqLSNwUyCeD7YP9CAT1pWnJqCMqQNajWLLvqrmgI3X3kNL8efpklgbJcwa4L/zKwsRu94GnbniSOoHBaSQrt0Iws6z/gwY6nAGD0uUZNle7mV1KX/EBCFvSQcPcwk4u1hjKfxArMPrsd1hurc97FWa1hETshjiUchQ1/u2/8G2C2R3uzIJGVKZX3KsT4na6aS7h9eKBg93clulpm8DeO+dcM/OQWo1pvXuJ11yt9j4O8amlv5bHwbrdF6+2qcwBFV3Z4CUvXPojUVqcmHVhnUuKkqZvES9GaerHU/vgbTl+TGsLgt0=
     ports:
       - 8081:80
     restart: on-failure
+    depends_on:
+        - keycloak
 
   artist-service:
     build:
@@ -64,6 +66,8 @@ services:
     ports:
       - 8082:80
     restart: on-failure
+    depends_on:
+      - keycloak
 
   playlist-service:
     build:
@@ -72,6 +76,8 @@ services:
     ports:
       - 8083:80
     restart: on-failure
+    depends_on:
+      - keycloak
 
   database:
     image: mongo:latest

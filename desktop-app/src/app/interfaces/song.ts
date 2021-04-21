@@ -8,5 +8,6 @@ export interface Song {
     artist: Artist,
     songId: string,
     imageId: string,
+    isImgLoaded: boolean,
     links: Link[]
 }
