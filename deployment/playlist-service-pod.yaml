@@ -3,12 +3,12 @@ kind: Pod
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: artist-service
-  name: artist-service
+    io.kompose.service: playlist-service
+  name: playlist-service
 spec:
   containers:
-  - image: hardhub_artist-service:latest
-    name: artist-service
+  - image: hardhub_playlist-service:latest
+    name: playlist-service
     ports:
     - containerPort: 80
     resources: {}

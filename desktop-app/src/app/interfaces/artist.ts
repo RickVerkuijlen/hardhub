@@ -4,6 +4,6 @@ export interface Artist {
     id: number,
     name: string,
     imageId: string,
-    isImgLoaded: boolean,
+    isImgLoaded?: boolean,
     links: Link[]
 }

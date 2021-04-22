@@ -1,6 +1,7 @@
 {
     "PAGES": {
         "HOME": {
+            "WELCOME": "Welkom ",
             "RECOMMENDED": "Uitgelicht",
             "ARTISTS": "Artiesten",
             "PLAYLISTS": "Afspeellijsten"

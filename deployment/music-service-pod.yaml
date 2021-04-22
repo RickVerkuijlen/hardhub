@@ -1,26 +1,24 @@
 apiVersion: v1
 kind: Pod
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.22.0 (955b78124)
   creationTimestamp: null
   labels:
     io.kompose.service: music-service
   name: music-service
 spec:
   containers:
-    - env:
-        - name: AWS_ACCESS_KEY_ID
-          value: ASIAWSSDDKFSFLZTBFVJ
-        - name: AWS_SECRET_ACCESS_KEY
-          value: ZqTpCCKWjog1t1J+Wg1y8mmypPGLj5A23qt/NsnN
-        - name: AWS_SESSION_TOKEN
-          value: IQoJb3JpZ2luX2VjEAQaCXVzLXdlc3QtMiJHMEUCIHzG/tLi7wx8Ecp64ARON754EFXCHt25m4QcGA2dSpPoAiEAt9T01t9GXesdShy7mu7UONAqU6WQPNSmCyzWG4gRcGwqtwIIXRAAGgw0NTIxODYwMzQ1MzIiDDOZV4HtQmr2gFE9LCqUAn/8c/DxXUdgv7cfk/3npjKG8D8GyDQmjubDMlqIPuMy52Vn3beI273WSyhnVGfIEaUutFE5oDKK6xAuCzrbl7gVGhO/pjL4wD/wIGlOYco+5ocIxAp6NiRvb6OU5InqhoenVRyKOVSar5qVRkqbIjNcA39rEXMWpow4pbs/GZEV/lP27wivQuoU7dM5f6VcVGEkbqFnRIHSlnLw+sR2W8KOGRQrWppyz43RNcxQqSlTjRbV03tEGcys/IpcKqalRkLzxAoBq8Zn0SHo/4ekdab7oG+tqu1falcy+WdQf5ymImigIG4cxZLLuVd93CVRtn+MPeCgZJ6XVfTItOT/wEgrPVNc849h8q6f16gz+kzJhw1uBTD937uDBjqdAUhrmP7rD/s6hDhA4AKunAwgxnnrcz1jGK2A7tH4QFRAcgZg0sE9BmYZ+vPewJi/lR0dHBHibhT+amaG81Ic4C/Kug1ofSjWTKLfV/EHJYlKTpC/rOmbLz6fQxpYzh5RrQBaT7KibwcynjEvy10uzaF/0ThYfnzFLKMAKVn9uQZ2ktYiM8dwaDJCZs7itkxXz3sw8nr5mFBKUQ68wDM=
-      image: music-service
-      name: music-service
-      ports:
-        - containerPort: 80
-      resources: {}
+  - env:
+    - name: AWS_ACCESS_KEY_ID
+      value: ASIAWSSDDKFSDL5W434S
+    - name: AWS_SECRET_ACCESS_KEY
+      value: 2qxs/HkyF2akDaG8kK/TybwxiVLcAabRcNBmLPPF
+    - name: AWS_SESSION_TOKEN
+      value: IQoJb3JpZ2luX2VjEFAaCXVzLXdlc3QtMiJHMEUCIQC4QOkNnhYNtfZkp+m+ODh/KF4MGzuhyZr91rKtut6jeQIgT37E9p45Mwy20EpzHkPLydzAORM2Du/t3XNYNaO6z/gqwAIIuf//////////ARAAGgw0NTIxODYwMzQ1MzIiDNCbSxYtpS3MVK2/0iqUAjsHb1tuMXBfvcHFElSIdws+wrbBN4XvVTdTqWfeFWmCBvBgJhGT7jgB53PjxNBS3LO0hMFez1Psh415Fsj5o/YCSfk55LIMrf8QQE9PZw2vy+CIAlhmwm/B9PAIPqidy3TQ2eh1avAE78n5iU8/IK46xGZVg89A5bn9WKyXH/r5M9PlkZ4ZrxMZ4fc071Z2Xc7lPxYO6DUen2+FTFqimrMkqwKlR3nbIFBeRNEdzh+0GJKc+a6LdldSH/phvwBUEbpFsSH3uSEfQVY2AMxXmrGnMiYBSZ6gW0G1LpXD0zRjOsnwdUsPzfwWN7IoJrnp/MO5EjyerqXu9uH0zcBZNE1GYHHvFzK3meHNATU2jLRq/hTvCTDd0ISEBjqdAavEaM3JGO565xM2YsmCWD+0JRrgZIfygmWFMIghW9DMEe8AGxmIJZ5y7J/McRFQM+H0XcG9PwBqG6oFS9/t+KUeQg6OvUdi5yGe1LgI52Tgfy4zYhhjzjRM1OKE9Pxp1MTd6hl56Cg4UekG5CTlBZnxLMv1ctCuGHeR32SvlZKpHIPkbOMnFSQ/MUOg4Rg55IxhY8Ax1FBQvaiHRD4=
+    image: hardhub_music-service:latest
+    name: music-service
+    ports:
+    - containerPort: 80
+    resources: {}
+    imagePullPolicy: IfNotPresent
   restartPolicy: OnFailure
 status: {}

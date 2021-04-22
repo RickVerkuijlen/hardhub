@@ -7,14 +7,14 @@ metadata:
     kompose.version: 1.21.0 (992df58d8)
   creationTimestamp: null
   labels:
-    io.kompose.service: music-service
-  name: music-service
+    io.kompose.service: playlist-service
+  name: playlist-service
 spec:
   ports:
-  - name: "8081"
-    port: 8081
+  - name: "8083"
+    port: 8083
     targetPort: 80
   selector:
-    io.kompose.service: music-service
+    io.kompose.service: playlist-service
 status:
   loadBalancer: {}

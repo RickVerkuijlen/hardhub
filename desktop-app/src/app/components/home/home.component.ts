@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
     this.songService.getAllSongs()
     .subscribe((data: Song[]) => {
       data.forEach((song: Song) => {
-        this.songService.getArtist(song.links.find(x => x.params.rel == "artist").uri)
+        this.songService.getArtist(song.links.find(x => x.rel == "artist").uri)
         .subscribe(artist => {
           song.artist = artist;
           song.isImgLoaded = false;

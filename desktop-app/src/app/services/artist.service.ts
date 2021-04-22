@@ -17,7 +17,7 @@ export class ArtistService {
       mergeMap((asIs: Artist[]) => asIs),
       map((artist: Artist) => ({
         ...artist,
-        imageId: artist.links.find(k => k.params.rel == "image").uri
+        imageId: artist.links.find(k => k.rel == "image").uri
       })),
       toArray()
     );
@@ -28,7 +28,7 @@ export class ArtistService {
     .pipe(
       map((artist: Artist) => ({
         ...artist,
-        imageId: artist.links.find(k => k.params.rel == "image").uri
+        imageId: artist.links.find(k => k.rel == "image").uri
       })),
     )
   }

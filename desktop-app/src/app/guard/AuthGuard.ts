@@ -28,6 +28,7 @@ export class AuthGuard extends KeycloakAuthGuard {
         console.log(decoded);
 
         const user: User = {
+          uuid: decoded.sub,
           name: decoded.name,
           email: decoded.email,
           jwt: temp

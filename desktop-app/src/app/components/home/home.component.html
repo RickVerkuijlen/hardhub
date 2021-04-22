@@ -1,5 +1,5 @@
 <div class="main">
-    Welkom {{username}}
+    {{'PAGES.HOME.WELCOME' | translate }} {{username}}
     <h1>{{ 'PAGES.HOME.RECOMMENDED' | translate }}</h1>
     <div class="recommended scrollable" *ngIf="allSongs else loading">
         <div class="song" *ngFor="let song of allSongs" (contextmenu)="displayContextMenu($event, song.id); false" >

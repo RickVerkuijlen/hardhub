@@ -1,6 +1,7 @@
 {
   "PAGES": {
     "HOME": {
+      "WELCOME": "Welcome ",
       "RECOMMENDED": "Recommended",
       "ARTISTS": "Artists",
       "PLAYLISTS": "Playlists"

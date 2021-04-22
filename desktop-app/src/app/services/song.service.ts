@@ -20,8 +20,8 @@ export class SongService {
       mergeMap((asIs: Song[]) => asIs),
       map((song: Song) => ({
         ...song,
-        songId: song.links.find(k => k.params.rel == "song").uri,
-        imageId: song.links.find(k => k.params.rel == "image").uri
+        songId: song.links.find(k => k.rel == "song").uri,
+        imageId: song.links.find(k => k.rel == "image").uri
       })),
       toArray()
     )
