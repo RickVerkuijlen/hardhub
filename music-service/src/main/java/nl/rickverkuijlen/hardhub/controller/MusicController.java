@@ -51,28 +51,59 @@ public class MusicController extends CommonResource {
     @GET
     @Path("id/{id}")
     public Response getSongById(@PathParam String id) {
-        Response.ResponseBuilder response = Response.ok(musicLogic.get(Integer.parseInt(id)));
+        log.info("getSongById: " + id);
+        try {
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(musicLogic.get(Integer.parseInt(id)))
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
 
-        response.header("Content-Type", "application/json");
-        return response.build();
     }
 
     @GET
     @Path("artist/{id}")
     public Response getSongsByArtistId(@PathParam String id) {
-        Response.ResponseBuilder response = Response.ok(musicLogic.getAllFromArtistId(Integer.parseInt(id)));
-
-        response.header("Content-Type", "application/json");
-        return response.build();
+        log.info("getSongByArtistId: " + id);
+        try {
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(musicLogic.getAllFromArtistId(Integer.parseInt(id)))
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
     }
 
     @GET
     @Path("allSongs")
     public Response getAllSongs() {
-        Response.ResponseBuilder response = Response.ok(musicLogic.getAll());
-
-        response.header("Content-Type", "application/json");
-        return response.build();
+        log.info("getAllSongs");
+        try {
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(musicLogic.getAll())
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
     }
 
     

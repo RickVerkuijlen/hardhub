@@ -5,6 +5,7 @@ import io.quarkus.mongodb.panache.PanacheMongoEntity;
 import lombok.*;
 import org.bson.codecs.pojo.annotations.BsonProperty;
 
+import javax.persistence.Transient;
 import javax.ws.rs.core.Link;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class Music extends PanacheMongoEntity {
     private String imageId;
 
     @Setter(AccessLevel.NONE)
+    @Transient
     private List<Link> links = new ArrayList<>();
 
     public void addLink(Link link) {

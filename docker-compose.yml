@@ -10,7 +10,7 @@ services:
     ports:
       - 80:80
   
-  mysql:
+  keycloak-mysql:
     image: mysql:5.7
     volumes:
       - mysql_data:/var/lib/mysql
@@ -24,7 +24,7 @@ services:
       image: jboss/keycloak:latest
       environment:
         DB_VENDOR: MYSQL
-        DB_ADDR: mysql
+        DB_ADDR: keycloak-mysql
         DB_DATABASE: keycloak
         DB_USER: keycloak
         DB_PASSWORD: password
@@ -35,7 +35,7 @@ services:
       ports:
         - 8080:8080
       depends_on:
-        - mysql
+        - keycloak-mysql
 
   mailhog:
     image: mailhog/mailhog
@@ -50,9 +50,9 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSDL5W434S
-      AWS_SECRET_ACCESS_KEY: 2qxs/HkyF2akDaG8kK/TybwxiVLcAabRcNBmLPPF
-      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEFAaCXVzLXdlc3QtMiJHMEUCIQC4QOkNnhYNtfZkp+m+ODh/KF4MGzuhyZr91rKtut6jeQIgT37E9p45Mwy20EpzHkPLydzAORM2Du/t3XNYNaO6z/gqwAIIuf//////////ARAAGgw0NTIxODYwMzQ1MzIiDNCbSxYtpS3MVK2/0iqUAjsHb1tuMXBfvcHFElSIdws+wrbBN4XvVTdTqWfeFWmCBvBgJhGT7jgB53PjxNBS3LO0hMFez1Psh415Fsj5o/YCSfk55LIMrf8QQE9PZw2vy+CIAlhmwm/B9PAIPqidy3TQ2eh1avAE78n5iU8/IK46xGZVg89A5bn9WKyXH/r5M9PlkZ4ZrxMZ4fc071Z2Xc7lPxYO6DUen2+FTFqimrMkqwKlR3nbIFBeRNEdzh+0GJKc+a6LdldSH/phvwBUEbpFsSH3uSEfQVY2AMxXmrGnMiYBSZ6gW0G1LpXD0zRjOsnwdUsPzfwWN7IoJrnp/MO5EjyerqXu9uH0zcBZNE1GYHHvFzK3meHNATU2jLRq/hTvCTDd0ISEBjqdAavEaM3JGO565xM2YsmCWD+0JRrgZIfygmWFMIghW9DMEe8AGxmIJZ5y7J/McRFQM+H0XcG9PwBqG6oFS9/t+KUeQg6OvUdi5yGe1LgI52Tgfy4zYhhjzjRM1OKE9Pxp1MTd6hl56Cg4UekG5CTlBZnxLMv1ctCuGHeR32SvlZKpHIPkbOMnFSQ/MUOg4Rg55IxhY8Ax1FBQvaiHRD4=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSHWBXT2C7
+      AWS_SECRET_ACCESS_KEY: UjE8K2eWZlc4algqvLoVtdPZF2WLU2bBIdTIuRgu 
+      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEOH//////////wEaCXVzLXdlc3QtMiJIMEYCIQCMVWge6U6xfILUHuyNFX6T86FH22Ax3b8Mim4MBOBoVQIhAJt63A7f3L6Obu2nxb6qBhf13GLN6THfQ7ERHXLGWqT/KrcCCFoQABoMNDUyMTg2MDM0NTMyIgxk7MG2BZ+YfkSAJukqlAIyRNsmigM7RCoACCSA9WspZ0crpMKFZYvDBQWFav0fvyCy8oWaDnHyewG9lraJ4nP9Tr7Z8FZYLUiphoO9HsbrS2s5t6gga5YbYqs3yWnOXYiuhxWhsGx3KicBXjvJshOyc/XHZSu+6QPLAJk9zZFNEZXgVGR4CpKsEdp/dFhGq122qs07xShz7zdfCf9cL1qQ8XmNLOZ+doqU9YOSTQk7bCgnH6sxz2iNXoAJmTQ5sJ+fy0dZOuoMB5X3Ibty1sdFFiI/XW7CNU40G0h93sABfpdVW3D3NMMCzF9zSBCS4UxfgJZFOZAtDNGCjSTDMBJkTZEDM3yJbhZnMPAAPhmkcy8QqziAob1TVwL4aznVcuJCLQIw/cqkhAY6nAEnzRllFpek4fU7XYJ3CpzGNegY1Mm3lLPBDfpp5rfyxf7dIMIpb0Qed7ENbNA3Jkrt5egvwkKSaXWxOjOVt7AKp14CorBBagubulGiAQ6SB8ZeSiSJj2jZspCtSX0y2YwpVcxNraRQ2pkSLbBQ4aL68WXS+5xGn2hw2aYqk6k4bjoEnwtI2aXCScZsCvB9mQ6Mo0XOz7VPhvcaWIc=
     ports:
       - 8081:80
     restart: on-failure
@@ -78,6 +78,20 @@ services:
     restart: on-failure
     depends_on:
       - keycloak
+      - playlist-mysql
+  
+  playlist-mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - playlist_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: playlist
+      MYSQL_USER: playlist
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
 
   database:
     image: mongo:latest
@@ -93,3 +107,4 @@ volumes:
   mongodb_data_container:
   mysql_data:
       driver: local
+  playlist_data:

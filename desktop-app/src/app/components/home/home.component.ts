@@ -3,9 +3,11 @@ import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
 import { AudioService } from '../../services/audio.service';
 import { ArtistService } from '../../services/artist.service';
+import { PlaylistService } from '../../services/playlist.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Artist } from '../../interfaces/artist';
 import { ContextMenuModel } from '../../interfaces/context-menu-model';
+import { Playlist } from '../../interfaces/playlist';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class HomeComponent implements OnInit {
   public song: Song;
   public allSongs: Song[];
   public allArtist: Artist[];
+  public allPlaylists: Playlist[];
 
   public username: string
 
@@ -28,7 +31,12 @@ export class HomeComponent implements OnInit {
   rightClickMenuPositionX: number;
   rightClickMenuPositionY: number;
 
-  constructor(private songService: SongService, private artistService: ArtistService, private audioService: AudioService, public translate: TranslateService) { }
+  constructor(
+    private songService: SongService, 
+    private artistService: ArtistService, 
+    private playlistService: PlaylistService, 
+    private audioService: AudioService, 
+    public translate: TranslateService) { }
 
   ngOnInit(): void {
     this.username = JSON.parse(localStorage.getItem('user')).name;
@@ -52,6 +60,12 @@ export class HomeComponent implements OnInit {
         artist.isImgLoaded = false;
       })
       this.allArtist = data;
+    })
+
+    this.playlistService.getAllPlaylists()
+    .subscribe((data: Playlist[]) => {
+      console.log(data);
+      this.allPlaylists = data;
     })
   }
 

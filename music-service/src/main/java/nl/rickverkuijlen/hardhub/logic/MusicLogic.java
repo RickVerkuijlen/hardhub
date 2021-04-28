@@ -18,24 +18,36 @@ public class MusicLogic {
     @Inject
     MusicRepository repository;
 
-    public Music get(int id) {
+    public Music get(int id) throws Exception {
         Music result = repository.findById(id);
+
+        if(result == null) {
+            throw new Exception("Music not found");
+        }
 
         generateList(result);
 
         return result;
     }
 
-    public List<Music> getAll() {
+    public List<Music> getAll() throws Exception {
         List<Music> result = repository.getAll();
+
+        if(result == null) {
+            throw new Exception("Music not found");
+        }
 
         result.forEach(this::generateList);
 
         return result;
     }
 
-    public List<Music> getAllFromArtistId(int id) {
+    public List<Music> getAllFromArtistId(int id) throws Exception {
         List<Music> result = repository.getAllFromArtistId(id);
+
+        if(result == null) {
+            throw new Exception("Music not found");
+        }
 
         result.forEach(this::generateList);
 

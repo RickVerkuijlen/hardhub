@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment'; 
 import { map, mapTo } from 'rxjs/operators';
 import { Song } from '../interfaces/song';
+import { Playlist } from '../interfaces/playlist';
 import { Artist } from '../interfaces/artist';
 
 @Injectable({
@@ -33,5 +34,9 @@ export class RequestService {
 
   getArtistById(id: number): Observable<Artist> {
     return this.http.get<Artist>(this._baseUrl + "/artist/id/" + id);
+  }
+
+  getAllPlaylists(): Observable<Playlist[]> {
+    return this.http.get<Playlist[]>(this._baseUrl + "/playlist");
   }
 }
