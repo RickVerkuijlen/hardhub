@@ -25,4 +25,24 @@ public class MusicRepository implements PanacheMongoRepository<Music> {
     public List<Music> getAllFromArtistId(int id) {
         return find("artistId", id).list();
     }
+
+    public boolean updateStreamCount(int id) {
+        Music music = find("id", id).firstResult();
+
+        System.out.println(music);
+
+        int streamCount = music.getStreamCount();
+        System.out.println(streamCount);
+        streamCount++;
+        System.out.println(streamCount);
+        music.setStreamCount(streamCount);
+
+        try {
+            Music.update("streamCount", streamCount).where("id", id);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
 }

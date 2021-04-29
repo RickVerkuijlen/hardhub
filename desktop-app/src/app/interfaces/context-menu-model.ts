@@ -1,5 +1,5 @@
 export interface ContextMenuModel {
     menuText: string;
-    menuData: number;
+    menuData: any;
     menuEvent: string;
 }

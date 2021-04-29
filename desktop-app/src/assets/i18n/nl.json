@@ -9,6 +9,11 @@
         "ARTIST": {
           "FOLLOW": "Volgen",
           "FOLLOWING": "Volgend"
-        }
+        },
+        "PLAYLIST": {
+            "TITLE": "Titel",
+            "ARTIST": "Artiest",
+            "SONGS": "nummers"
+          }
     }
 }

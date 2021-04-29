@@ -1,6 +1,7 @@
 package nl.rickverkuijlen.hardhub.logic;
 
 import nl.rickverkuijlen.hardhub.model.Playlist;
+import nl.rickverkuijlen.hardhub.model.PlaylistSong;
 import nl.rickverkuijlen.hardhub.repository.PlaylistRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -27,14 +28,23 @@ public class PlaylistLogic {
     }
 
     public Playlist getPlaylistById(int id) throws Exception {
-        throw new Exception("Not implemented yet");
+        Playlist result = playlistRepository.getPlaylistById(id);
+
+        this.generateLink(result);
+
+        return result;
+    }
+
+    public Playlist addSongToPlaylist(int id, int songId) {
+        playlistRepository.addSongToPlaylist(id, songId);
+        return new Playlist();
     }
 
     private void generateLink(Playlist playlist) {
         Link link = Link.fromUri(gatewayEndpoint + "/playlist/" + playlist.getId()).rel("self").build();
         playlist.addLink(link);
-        for (int id: playlist.getSongIds()) {
-            Link artist = Link.fromUri(gatewayEndpoint + "/music/id/" + id).rel("songId").build();
+        for (PlaylistSong id: playlist.getSongIds()) {
+            Link artist = Link.fromUri(gatewayEndpoint + "/music/id/" + id.getSongId()).rel("songId").build();
             playlist.addLink(artist);
         }
 

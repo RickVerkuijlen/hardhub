@@ -1,0 +1,20 @@
+<div class="main">
+    <div *ngIf="playlist$ | async as playlist">
+        <h1>{{playlist.name}}</h1>
+        <span>{{ playlist.songs.length }} {{ 'PAGES.PLAYLIST.SONGS' | translate }}</span>
+        <div *ngIf="playlist.songs" class="song-list">
+            <span class="header">{{ 'PAGES.PLAYLIST.TITLE' | translate }}</span>
+            <span class="header">{{ 'PAGES.PLAYLIST.ARTIST' | translate }}</span>
+            <span class="header"><fa-icon [icon]='faCalendarDay' [styles]="{'color': 'grey'}"></fa-icon></span>
+            <div class="song" *ngFor="let song of playlist.songs" (click)="playSong(song)">
+                <span>{{song.name}}</span>
+                <span>{{song.artist.name}}</span>
+                <span>{{song.addedOn | date:'dd-MM-YY' }}</span>
+                <span class="options"><fa-icon [icon]='faEllipsisH'></fa-icon></span>
+            </div>
+        </div>
+    </div>
+    
+    
+</div>
+

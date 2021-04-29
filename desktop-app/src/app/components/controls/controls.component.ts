@@ -27,7 +27,7 @@ export class ControlsComponent implements OnInit {
   constructor(private audio: AudioService, private request: RequestService) { 
     this.currentSong = JSON.parse(localStorage.getItem("currentSong"));
     console.log(this.currentSong);
-    this.request.getSong(this.currentSong.songId).subscribe((data: Blob) => {
+    this.request.getSongMp3(this.currentSong.songId).subscribe((data: Blob) => {
       this.audioSource = URL.createObjectURL(data);
     });
     this.audio.getState().subscribe(state => {

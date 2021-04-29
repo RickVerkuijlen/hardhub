@@ -4,7 +4,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import * as moment from 'moment';
 import { StreamState } from '../interfaces/stream-state';
 import { Song } from '../interfaces/song';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { SongService } from './song.service';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +35,8 @@ export class AudioService {
     songName: '',
     thumbnailUrl: ''
   }
+
+  constructor(private songService: SongService) {}
 
   currentSong: Song;
 
@@ -112,6 +114,7 @@ export class AudioService {
         this.state.artistName = this.currentSong.artist.name;
         this.state.songName = this.currentSong.name;
         this.state.thumbnailUrl = this.currentSong.imageId;
+        this.songService.updateStreamCount(this.currentSong.id);
         break;
       case "playing":
         this.state.playing = true;

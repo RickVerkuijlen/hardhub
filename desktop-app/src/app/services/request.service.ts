@@ -16,12 +16,16 @@ export class RequestService {
 
   constructor(private http: HttpClient) { }
 
-  getSong(url: string): Observable<any> {
+  getSongMp3(url: string): Observable<any> {
     return this.http.get(url, {responseType: 'blob'});
   }
 
   getAllSongs(): Observable<Song[]>{
     return this.http.get<Song[]>(this._baseUrl + "/music/allSongs");
+  }
+
+  getSongById(id: number): Observable<Song> {
+    return this.http.get<Song>(this._baseUrl + 'music/id/' + id);
   }
 
   getLinkData<T>(url: string) {
@@ -38,5 +42,17 @@ export class RequestService {
 
   getAllPlaylists(): Observable<Playlist[]> {
     return this.http.get<Playlist[]>(this._baseUrl + "/playlist");
+  }
+
+  getPlaylistById(id: number): Observable<Playlist> {
+    return this.http.get<Playlist>(this._baseUrl + '/playlist/' + id);
+  }
+
+  updateStreamCount(id: number): void {
+    this.http.put(this._baseUrl + "/music/id/" + id, null).subscribe();
+  }
+
+  addSongToPlaylist(id: number, song: Song) {
+    this.http.post(this._baseUrl + "/playlist/" + id, JSON.stringify(song));
   }
 }

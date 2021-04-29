@@ -23,9 +23,7 @@ export class AuthGuard extends KeycloakAuthGuard {
           });
         }
         let temp = await this.keycloakAngular.getToken();
-        console.log(temp);
         var decoded: any = jwt_decode(temp);
-        console.log(decoded);
 
         const user: User = {
           uuid: decoded.sub,

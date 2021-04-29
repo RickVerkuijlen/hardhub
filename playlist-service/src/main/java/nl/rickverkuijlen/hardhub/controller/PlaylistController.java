@@ -1,11 +1,12 @@
 package nl.rickverkuijlen.hardhub.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import io.vertx.core.json.JsonObject;
 import nl.rickverkuijlen.hardhub.logic.PlaylistLogic;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
+import javax.transaction.Transactional;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -50,6 +51,26 @@ public class PlaylistController {
         }
     }
 
+    @POST
+    @Path("{id}")
+    @Transactional
+    @Consumes(MediaType.TEXT_PLAIN)
+    public Response addSongToPlaylist(@PathParam("id") String id, String songId) {
+        System.out.println(Integer.parseInt(songId));
+        try {
+            return Response
+                    .status(Response.Status.ACCEPTED)
+                    .entity(playlistLogic.addSongToPlaylist(Integer.parseInt(id), Integer.parseInt(songId)))
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch(Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
+    }
 
 
 }

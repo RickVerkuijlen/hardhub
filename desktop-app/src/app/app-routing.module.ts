@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ArtistComponent } from './components/artist/artist.component';
-import { FriendsComponent } from './components/friends/friends.component';
 import { HomeComponent } from './components/home/home.component';
-import { MenuComponent } from './components/menu/menu.component';
 import { PageNotFoundComponent } from './shared/components';
 import { AuthGuard } from './guard/AuthGuard';
+import { PlaylistComponent } from './components/playlist/playlist.component';
 
 const routes: Routes = [
   {
@@ -21,6 +20,10 @@ const routes: Routes = [
   {
     path: 'artist/:id',
     component: ArtistComponent
+  },
+  {
+    path: 'playlist/:id',
+    component: PlaylistComponent
   },
   {
     path: '**',

@@ -14,8 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@MongoEntity(collection = "music")
-public class Music extends PanacheMongoEntity {
+public class Song {
 
     @BsonProperty("id")
     private int id;

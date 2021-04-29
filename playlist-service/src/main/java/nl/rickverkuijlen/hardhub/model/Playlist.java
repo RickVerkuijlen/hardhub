@@ -1,10 +1,12 @@
 package nl.rickverkuijlen.hardhub.model;
 
 import lombok.*;
+import org.graalvm.collections.Pair;
 
 import javax.persistence.*;
 import javax.ws.rs.core.Link;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -22,8 +24,7 @@ public class Playlist {
 
     @ElementCollection
     @CollectionTable(name = "playlist_song", joinColumns = @JoinColumn(name = "playlistId"))
-    @Column(name = "songId")
-    private List<Integer> songIds;
+    private List<PlaylistSong> songIds;
 
     @Setter(AccessLevel.NONE)
     @Transient

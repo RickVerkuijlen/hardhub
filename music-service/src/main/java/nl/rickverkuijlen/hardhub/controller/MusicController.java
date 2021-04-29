@@ -12,6 +12,7 @@ import software.amazon.awssdk.services.s3.model.S3Object;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -65,7 +66,25 @@ public class MusicController extends CommonResource {
                     .type(MediaType.TEXT_PLAIN)
                     .build();
         }
+    }
 
+    @PUT
+    @Path("id/{id}")
+    public Response updateStreamCount(@PathParam("id") String id) {
+        log.info("updateStreamCount");
+        try {
+            return Response
+                    .status(Response.Status.OK)
+                    .entity(musicLogic.updateStreamCount(Integer.parseInt(id)))
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
     }
 
     @GET

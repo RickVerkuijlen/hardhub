@@ -1,0 +1,37 @@
+div.song-list {
+    span {
+        display: inline-block;
+        width: calc(95% / 3);
+        &.header {
+            text-transform: uppercase;
+            color: grey !important;
+        }
+    }
+    div.song {
+        border-bottom: 1px solid grey;
+        padding: 15px;
+        cursor: pointer;
+        
+        span {
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
+            &:nth-last-child(2) {
+                color: grey;
+            }
+            &.options {
+                display: none;
+                width: 5%;
+                font-size: 20px;
+            }
+        }
+        &:hover {
+            span {
+                color: orange;
+                &.options {
+                    display: inline-block;
+                }
+            }
+        }
+    }
+}

@@ -54,6 +54,16 @@ public class MusicLogic {
         return result;
     }
 
+    public boolean updateStreamCount(int id) throws Exception {
+        boolean success = repository.updateStreamCount(id);
+
+        if(!success) {
+            throw new Exception("Stream count could not be updated.");
+        }
+
+        return success;
+    }
+
     private void generateList(Music music) {
         Link link = Link.fromUri(gatewayEndpoint + "/music/id/" + music.getId()).rel("self").build();
         music.addLink(link);

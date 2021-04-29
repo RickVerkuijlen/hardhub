@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { map, mergeMap, take, toArray } from 'rxjs/operators';
 import { Artist } from '../interfaces/artist';
 import { Song } from '../interfaces/song';
@@ -10,12 +10,13 @@ import { RequestService } from './request.service';
 })
 export class SongService {
 
-  private artist: Artist;
+  private allSongsSubject = new ReplaySubject<Song[]>(1);
+  public allSongs$ = this.allSongsSubject.asObservable();
 
   constructor(private request: RequestService) { }
 
-  public getAllSongs(): Observable<any> {
-    return this.request.getAllSongs()
+  public getAllSongs(): void {
+    this.request.getAllSongs()
     .pipe(
       mergeMap((asIs: Song[]) => asIs),
       map((song: Song) => ({
@@ -24,10 +25,23 @@ export class SongService {
         imageId: song.links.find(k => k.rel == "image").uri
       })),
       toArray()
-    )
+    ).subscribe((data: Song[]) => {
+      data.forEach((song: Song) => {
+        this.getArtist(song.links.find(x => x.rel == "artist").uri)
+        .subscribe(artist => {
+          song.artist = artist;
+          song.isImgLoaded = false;
+        })
+      })
+      this.allSongsSubject.next(data);
+    })
   }
 
   public getArtist(url: string): Observable<Artist> {
     return this.request.getLinkData(url);
+  }
+
+  public updateStreamCount(id: number): void {
+    return this.request.updateStreamCount(id);
   }
 }
