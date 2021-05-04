@@ -27,7 +27,7 @@ public class PlaylistLogic {
         return result;
     }
 
-    public Playlist getPlaylistById(int id) throws Exception {
+    public Playlist getPlaylistById(int id) {
         Playlist result = playlistRepository.getPlaylistById(id);
 
         this.generateLink(result);
