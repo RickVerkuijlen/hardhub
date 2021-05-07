@@ -1,5 +1,6 @@
 package nl.rickverkuijlen.hardhub.model;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import java.util.Date;
 
 @Embeddable
 @Data
+@Builder
 @Table(name = "playlist_song")
 public class PlaylistSong implements Serializable {
 
