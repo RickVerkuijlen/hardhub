@@ -50,14 +50,16 @@ services:
       context: music-service
       dockerfile: src/main/docker/Dockerfile.jvm
     environment:
-      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSENRA3P64
-      AWS_SECRET_ACCESS_KEY: 879IV2PKGkwTIY5b7V2UKYM3xbE1x0dybQAkZ6Vc
-      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEHcaCXVzLXdlc3QtMiJGMEQCIBU1UwDkNKmjZd6eALCzowuYrXtdziA17/garbhd/WFdAiAh1X5c641JrsY3cV5YEuQdU9wdIFC9DwWUZzJ18/wHUirAAgjv//////////8BEAAaDDQ1MjE4NjAzNDUzMiIMrfEOnNC/pwiup/DMKpQCSGxVnvEuqaaD8RoHJ4Dp/FHb0MCH10EgLM1fBltRMkVkAw4MDsdnoqKsefEY/Y2P1q2Ub9qNTtlPubzyuBBXwCrm41YR2J0nnnKF/bmWcUwifdi/D3050kpFcym0zLu+c10UGYR2f8mtsVssCes+hdEB0kjSevT5N8fg6jyQJXOYh9xpG5xUMSGZlAiDXJp6wIxm4cWO7GfPsU2ajnZgEuu45X54QkRI9EvXMJc40wUseRI4dGKwiZtUWrYyUJxZyKOW2DjubcDB+lAiZgbnJoUUzCZWNEroR1T9dZLpUJ6+EDbrDbQ0P83Mk3kETh8xH6dTYctpGXVafJRcWz+Np5g1GMiAmRLLpFOFUSLE2MeRYxQiMKSwxYQGOp4B3IAjapp0KX3Eo50+z01DHvCYjj48mFvNRMBGPVTuTd++ouxJ28vL8XlQr6NDIu0LEKueJMEG5Pyuc4B0yVRlXCU5N0Kvo/tr7cB2yiQ7hk6Q69o6lky1/iczDVH4/x8/imy+bX5U6j3eic/YfyHFa7lS9sshGhuT7RYWr/TM93QHhxvUX/yYQp6bh60VTlayoNpI8/As3+Kqypq/bu4=
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSDA5IE2HA
+      AWS_SECRET_ACCESS_KEY: Hb4hstTYKPCq1j6+ZPa6Y1ZQ7BGEtT2YKS1uApC3
+      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEN3//////////wEaCXVzLXdlc3QtMiJHMEUCIHXUBmEkF4ZVFNA9Uz9tiWwey7X7QwqTJ8TYqNr0R8dSAiEA70xJBAWm8sEb9j6aoH++7SqUYQswYyKm0mZRfA2Dc0UqtwIIdhAAGgw0NTIxODYwMzQ1MzIiDH/um1HJr+wS6+3YnCqUAk+gD+Rr4dtyQEWgujeMXEYgMHIsKQRrzWfbya9AXGL7wxm8Lk8vBDEcJ/F6MMX4vJZWuPuvGKYrAHxTs/O/yNFk7OIAKUICmMRm0Shtdjmo4dXqkE1f3yQqVEjCiEP5IbnF/XZ/amVHfh7nPsuNvGR4+++SEMu1/lud3YlH+d3YWxlaUu1+/sPnn637HY+9MlSozarKZG+zc6ZRXVbuGhSBaTL3lQKhX+r2h8uWHF7bvLuvmQmP6l9jB5BkXfLV9jypMkimOciDRBzWCULrHhTZqsdUTDiSkUF0WWwSDeB92AXLEYFLQYVYcULGMhMfdRjSHW2EPFpHoR/eq3PSWPk8gmxf8CDE/jwo7JE1cXwZiwOajzCrjZSFBjqdAU+T9kUfrJ8t5nYzTFm4v8/bmOkFIAmqD1z/mFyN5AP5DwR+6E82q2SjOphPAf4YGbhlZxtxrHZjOXKi48XZuCksClNDHbJ+aQ+T3cIr4GJbGLmtH0xrbLr2rLRex8EglIUmlqJUNzNf4+Is0ZIbw2r5HUxA9gAC2Gmsx4QWSynid9rS4G2Wj1k14oaNL/iIsBgF0SmnJNpzhPNS3Z8=
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     ports:
       - 8081:80
     restart: on-failure
     depends_on:
         - keycloak
+        - kafka
 
   artist-service:
     build:
@@ -103,8 +105,43 @@ services:
       - 27017:27017
     volumes:
       - mongodb_data_container:/data/db
+
+  akhq:
+    image: tchiotludo/akhq
+    environment:
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            hardhub-kafka:
+              properties:
+                bootstrap.servers: "kafka:9092"
+    ports:
+      - 8888:8080
+    depends_on:
+      - zookeeper
+      - kafka
+
+  zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    restart: always
+  kafka:
+    image: wurstmeister/kafka:2.12-2.2.1
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+    ports:
+      - 9094:9094
+    restart: always
+
 volumes:
   mongodb_data_container:
   mysql_data:
       driver: local
   playlist_data:
+  zookeeper-data:
+    driver: local
+  zookeeper-log:
+    driver: local
+  kafka-data:
+    driver: local

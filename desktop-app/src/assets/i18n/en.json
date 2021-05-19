@@ -2,13 +2,16 @@
   "PAGES": {
     "HOME": {
       "WELCOME": "Welcome ",
+      "LOGOUT": "Logout",
+      "MANAGE": "Manage music",
       "RECOMMENDED": "Recommended",
       "ARTISTS": "Artists",
       "PLAYLISTS": "Playlists"
     },
     "ARTIST": {
       "FOLLOW": "Follow",
-      "FOLLOWING": "Following"
+      "FOLLOWING": "Following",
+      "ADD": "Add song"
     },
     "PLAYLIST": {
       "TITLE": "Title",

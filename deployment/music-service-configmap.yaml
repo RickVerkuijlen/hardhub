@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    name: music-service-configmap
+data:
+    database_url: mongodb://root:password@mongodb-service:27017
+    aws_key_id: ASIAWSSDDKFSDA5IE2HA
+    aws_secret_access_key: Hb4hstTYKPCq1j6+ZPa6Y1ZQ7BGEtT2YKS1uApC3
+    aws_session_token: IQoJb3JpZ2luX2VjEN3//////////wEaCXVzLXdlc3QtMiJHMEUCIHXUBmEkF4ZVFNA9Uz9tiWwey7X7QwqTJ8TYqNr0R8dSAiEA70xJBAWm8sEb9j6aoH++7SqUYQswYyKm0mZRfA2Dc0UqtwIIdhAAGgw0NTIxODYwMzQ1MzIiDH/um1HJr+wS6+3YnCqUAk+gD+Rr4dtyQEWgujeMXEYgMHIsKQRrzWfbya9AXGL7wxm8Lk8vBDEcJ/F6MMX4vJZWuPuvGKYrAHxTs/O/yNFk7OIAKUICmMRm0Shtdjmo4dXqkE1f3yQqVEjCiEP5IbnF/XZ/amVHfh7nPsuNvGR4+++SEMu1/lud3YlH+d3YWxlaUu1+/sPnn637HY+9MlSozarKZG+zc6ZRXVbuGhSBaTL3lQKhX+r2h8uWHF7bvLuvmQmP6l9jB5BkXfLV9jypMkimOciDRBzWCULrHhTZqsdUTDiSkUF0WWwSDeB92AXLEYFLQYVYcULGMhMfdRjSHW2EPFpHoR/eq3PSWPk8gmxf8CDE/jwo7JE1cXwZiwOajzCrjZSFBjqdAU+T9kUfrJ8t5nYzTFm4v8/bmOkFIAmqD1z/mFyN5AP5DwR+6E82q2SjOphPAf4YGbhlZxtxrHZjOXKi48XZuCksClNDHbJ+aQ+T3cIr4GJbGLmtH0xrbLr2rLRex8EglIUmlqJUNzNf4+Is0ZIbw2r5HUxA9gAC2Gmsx4QWSynid9rS4G2Wj1k14oaNL/iIsBgF0SmnJNpzhPNS3Z8=

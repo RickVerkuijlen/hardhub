@@ -21,7 +21,11 @@ export class RequestService {
   }
 
   getAllSongs(): Observable<Song[]>{
-    return this.http.get<Song[]>(this._baseUrl + "/music/allSongs");
+    return this.http.get<Song[]>(this._baseUrl + "music/allSongs");
+  }
+  
+  getAllSongsByArtist(id: string): Observable<Song[]> {
+    return this.http.get<Song[]>(this._baseUrl + "music/artist/" + id);
   }
 
   getSongById(id: number): Observable<Song> {
@@ -33,26 +37,26 @@ export class RequestService {
   }
 
   getAllArtists(): Observable<Artist[]> {
-    return this.http.get<Artist[]>(this._baseUrl + "/artist");
+    return this.http.get<Artist[]>(this._baseUrl + "artist");
   }
 
-  getArtistById(id: number): Observable<Artist> {
-    return this.http.get<Artist>(this._baseUrl + "/artist/id/" + id);
+  getArtistById(id: string): Observable<Artist> {
+    return this.http.get<Artist>(this._baseUrl + "artist/id/" + id);
   }
 
   getAllPlaylists(): Observable<Playlist[]> {
-    return this.http.get<Playlist[]>(this._baseUrl + "/playlist");
+    return this.http.get<Playlist[]>(this._baseUrl + "playlist");
   }
 
   getPlaylistById(id: number): Observable<Playlist> {
-    return this.http.get<Playlist>(this._baseUrl + '/playlist/' + id);
+    return this.http.get<Playlist>(this._baseUrl + 'playlist/' + id);
   }
 
   updateStreamCount(id: number): void {
-    this.http.put(this._baseUrl + "/music/id/" + id, null).subscribe();
+    this.http.put(this._baseUrl + "music/id/" + id, null).subscribe();
   }
 
   addSongToPlaylist(id: number, song: Song) {
-    this.http.post(this._baseUrl + "/playlist/" + id, JSON.stringify(song));
+    this.http.post(this._baseUrl + "playlist/" + id, JSON.stringify(song));
   }
 }

@@ -26,7 +26,7 @@ public class ArtistController {
         try {
             return Response
                     .status(Response.Status.OK)
-                    .entity(artistLogic.get(Integer.parseInt(artistId)))
+                    .entity(artistLogic.get(artistId))
                     .type(MediaType.APPLICATION_JSON_TYPE)
                     .build();
         } catch (Exception e) {

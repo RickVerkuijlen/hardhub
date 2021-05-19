@@ -26,6 +26,11 @@ const routes: Routes = [
     component: PlaylistComponent
   },
   {
+    path: 'manage/:id',
+    redirectTo: 'artist/:id',
+    pathMatch: 'full'
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   }

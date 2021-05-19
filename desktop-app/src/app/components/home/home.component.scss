@@ -1,5 +1,6 @@
 div.main {
     padding: 15px;
+    position: relative;
     .song {
         width: 200px;
         height: 200px;
@@ -66,6 +67,25 @@ div.main {
         display: flex;
     }
 }
+div.user {
+    position: relative;
+    text-align: right;
+    margin-right: 20px;
+    div#user-options {
+        position: absolute;
+        right: 0;
+        background: #2C2C2C;
+        padding: 15px 20px 0 20px;
+        border-radius: 5px;
+        p {
+            padding-bottom: 15px;
+        }
+        &:focus-visible {
+            display: block;
+        }
+    }
+}
+
 
 ::-webkit-scrollbar {
     height: 5px;

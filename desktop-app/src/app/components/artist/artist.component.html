@@ -1,11 +1,11 @@
 <div class="main">
-    <div class="artist">
+    <div class="artist" *ngIf="artist$ | async as artist">
         <h1>{{artist.name}}</h1>
         <img id="profile-picture" src="{{artist.imageId}}" alt="Profile picture of {{artist.name}}"/>
         <button id="follow">{{ 'PAGES.ARTIST.FOLLOW' | translate}}</button>
     </div>
     <div class="allSongs">
-        <div class="song" *ngFor="let song of allSongs" (contextmenu)="displayContextMenu($event, song.id); false" >
+        <div class="song" *ngFor="let song of allSongs$ | async" (contextmenu)="displayContextMenu($event, song.id); false" >
             <div (click)="playSong(song)">
                 <div class="song-info">
                     <p>{{song.name}}</p>
@@ -15,5 +15,13 @@
                 <img [hidden]="!song.isImgLoaded" [src]="song.imageId" class="thumbnail" (load)="song.isImgLoaded = !song.isImgLoaded"/>
             </div>
         </div>
+        <p *ngIf="isCurrentUserArtist">
+            <fa-icon [icon]="faPlus"></fa-icon>
+            {{ 'PAGES.ARTIST.ADD' | translate }}
+        </p>
     </div>
+</div>
+
+<div class="modal">
+    <app-new-song></app-new-song>
 </div>

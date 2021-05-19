@@ -26,7 +26,7 @@ public class ArtistLogic {
         return result;
     }
 
-    public Artist get(int id) {
+    public Artist get(String id) {
         Artist result = Artist.find("id", id).firstResult();
 
         Link link = Link.fromUri(gatewayEndpoint + "/artist/" + result.getId()).rel("self").build();

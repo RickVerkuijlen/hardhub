@@ -94,7 +94,7 @@ public class MusicController extends CommonResource {
         try {
             return Response
                     .status(Response.Status.OK)
-                    .entity(musicLogic.getAllFromArtistId(Integer.parseInt(id)))
+                    .entity(musicLogic.getAllFromArtistId(id))
                     .type(MediaType.APPLICATION_JSON_TYPE)
                     .build();
         } catch (Exception e) {
@@ -124,8 +124,6 @@ public class MusicController extends CommonResource {
                     .build();
         }
     }
-
-    
 
     @GET
     public List<FileObject> listFiles() {

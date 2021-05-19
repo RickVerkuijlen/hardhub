@@ -19,7 +19,7 @@ public class Artist extends PanacheMongoEntity {
 
     @BsonProperty("id")
     @Id
-    private int id;
+    private String id;
     private String name;
     private String imageId;
 

@@ -1,5 +1,13 @@
 <div class="main">
-    {{'PAGES.HOME.WELCOME' | translate }} {{username}}
+    <div class="user">
+        <span (click)="toggleUserOptions()">{{ 'PAGES.HOME.WELCOME' | translate }} {{user.name}}</span>
+        <div id="user-options" *ngIf="isUserOptionsVisible">
+            <p *ngIf="user.isArtist" [routerLink]="['/manage', user.uuid]">{{ 'PAGES.HOME.MANAGE' | translate }}</p>
+            <p (click)="logout()">{{ 'PAGES.HOME.LOGOUT' | translate }}</p>
+        </div>
+    </div>
+    
+
     <h1>{{ 'PAGES.HOME.RECOMMENDED' | translate }}</h1>
     <div class="recommended scrollable" *ngIf="allSongs$">
         <div class="song" *ngFor="let song of allSongs$ | async" (contextmenu)="displayContextMenu($event, song); false" >

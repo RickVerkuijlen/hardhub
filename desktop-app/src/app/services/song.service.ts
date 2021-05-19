@@ -37,6 +37,27 @@ export class SongService {
     })
   }
 
+  public getAllSongsFromArtist(id: string) {
+    this.request.getAllSongsByArtist(id).pipe(
+      mergeMap((asIs: Song[]) => asIs),
+      map((song: Song) => ({
+        ...song,
+        songId: song.links.find(k => k.rel == "song").uri,
+        imageId: song.links.find(k => k.rel == "image").uri
+      })),
+      toArray()
+    ).subscribe((data: Song[]) => {
+      data.forEach((song: Song) => {
+        this.getArtist(song.links.find(x => x.rel == "artist").uri)
+        .subscribe(artist => {
+          song.artist = artist;
+          song.isImgLoaded = false;
+        })
+      })
+      this.allSongsSubject.next(data);
+    })
+  }
+
   public getArtist(url: string): Observable<Artist> {
     return this.request.getLinkData(url);
   }

@@ -20,7 +20,7 @@ public class Music extends PanacheMongoEntity {
     @BsonProperty("id")
     private int id;
     private String name;
-    private int artistId;
+    private String artistId;
     private String songId;
     private String imageId;
     private int streamCount;

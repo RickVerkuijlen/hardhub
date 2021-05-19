@@ -22,7 +22,7 @@ public class MusicRepository implements PanacheMongoRepository<Music> {
         return findAll().list();
     }
 
-    public List<Music> getAllFromArtistId(int id) {
+    public List<Music> getAllFromArtistId(String id) {
         return find("artistId", id).list();
     }
 

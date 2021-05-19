@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { SongService } from '../../services/song.service';
 import { Song } from '../../interfaces/song';
 import { AudioService } from '../../services/audio.service';
@@ -9,6 +9,8 @@ import { Artist } from '../../interfaces/artist';
 import { ContextMenuModel } from '../../interfaces/context-menu-model';
 import { Playlist } from '../../interfaces/playlist';
 import { Observable } from 'rxjs';
+import { User } from '../../interfaces/user';
+import { AuthService } from '../../services/auth.service';
 
 
 @Component({
@@ -23,7 +25,7 @@ export class HomeComponent implements OnInit {
   public allArtist$: Observable<Artist[]>;
   public allPlaylists$: Observable<Playlist[]>;
 
-  public username: string
+  public user: User
 
   isImgLoaded: boolean = false;
 
@@ -32,15 +34,18 @@ export class HomeComponent implements OnInit {
   rightClickMenuPositionX: number;
   rightClickMenuPositionY: number;
 
+  isUserOptionsVisible = false;
+
   constructor(
     private songService: SongService, 
     private artistService: ArtistService, 
     private playlistService: PlaylistService, 
-    private audioService: AudioService, 
+    private audioService: AudioService,
+    private authService: AuthService, 
     public translate: TranslateService) { }
 
   ngOnInit(): void {
-    this.username = JSON.parse(localStorage.getItem('user')).name;
+    this.user = JSON.parse(localStorage.getItem('user'));
 
     this.songService.getAllSongs()
     this.allSongs$ = this.songService.allSongs$;
@@ -101,5 +106,13 @@ export class HomeComponent implements OnInit {
   @HostListener('document:click')
   documentClick(): void {
     this.isDisplayContextMenu = false;
+  }
+
+  logout() {
+    this.authService.logout();
+  }
+
+  toggleUserOptions() {
+    this.isUserOptionsVisible = !this.isUserOptionsVisible;
   }
 }

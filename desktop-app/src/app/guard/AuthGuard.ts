@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/ro
 import { KeycloakAuthGuard, KeycloakService } from 'keycloak-angular';
 import jwt_decode  from 'jwt-decode';
 import { User } from '../interfaces/user';
+import { faAngular } from '@fortawesome/free-brands-svg-icons';
 
 @Injectable({
     providedIn: 'root'
@@ -29,8 +30,10 @@ export class AuthGuard extends KeycloakAuthGuard {
           uuid: decoded.sub,
           name: decoded.name,
           email: decoded.email,
+          roles: decoded.resource_access.hardhub_angular.roles,
           jwt: temp
         }
+        user.isArtist = user.roles.includes('artist');
         localStorage.setItem('user', JSON.stringify(user));
     
         // Get the roles required from the route.

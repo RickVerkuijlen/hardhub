@@ -12,6 +12,9 @@ export class ArtistService {
   private allArtistsSubject = new ReplaySubject<Artist[]>(1);
   public allArtists$ = this.allArtistsSubject.asObservable();
 
+  private artistSubject = new ReplaySubject<Artist>(1);
+  public artist$ = this.artistSubject.asObservable();
+
   constructor(private request: RequestService){}
 
   getAllArtists(): void {
@@ -31,13 +34,15 @@ export class ArtistService {
     })
   }
 
-  getArtistById(id: number): Observable<Artist> {
-    return this.request.getArtistById(id)
+  getArtistById(id: string): void {
+    this.request.getArtistById(id)
     .pipe(
       map((artist: Artist) => ({
         ...artist,
         imageId: artist.links.find(k => k.rel == "image").uri
       })),
-    )
+    ).subscribe((data: Artist) => {
+      this.artistSubject.next(data);
+    });
   }
 }

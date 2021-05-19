@@ -6,7 +6,7 @@ export interface Song {
     id: number,
     name: string,
     artist: Artist,
-    artistId?: number,
+    artistId?: string,
     addedOn?: Date,
     songId: string,
     imageId: string,

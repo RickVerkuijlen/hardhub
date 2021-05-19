@@ -3,6 +3,8 @@ package nl.rickverkuijlen.hardhub.logic;
 import nl.rickverkuijlen.hardhub.model.Music;
 import nl.rickverkuijlen.hardhub.repository.MusicRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -42,7 +44,7 @@ public class MusicLogic {
         return result;
     }
 
-    public List<Music> getAllFromArtistId(int id) throws Exception {
+    public List<Music> getAllFromArtistId(String id) throws Exception {
         List<Music> result = repository.getAllFromArtistId(id);
 
         if(result == null) {
@@ -73,5 +75,11 @@ public class MusicLogic {
         music.addLink(song);
         Link image = Link.fromUri(gatewayEndpoint + "/music/" + music.getImageId()).rel("image").build();
         music.addLink(image);
+    }
+
+    @Incoming("forget-artist")
+    @Acknowledgment(Acknowledgment.Strategy.POST_PROCESSING)
+    public void forgetArtist(String artistId) {
+        System.out.println(artistId);
     }
 }
