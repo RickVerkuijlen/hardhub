@@ -13,3 +13,10 @@ spec:
             name: music-service
             port: 
               number: 80
+      - path: /artist
+        pathType: Prefix
+        backend:
+          service:
+            name: artist-service
+            port: 
+              number: 80

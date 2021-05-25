@@ -66,6 +66,10 @@ public class MusicLogic {
         return success;
     }
 
+    public Music addSong(Music music) throws Exception {
+
+    }
+
     private void generateList(Music music) {
         Link link = Link.fromUri(gatewayEndpoint + "/music/id/" + music.getId()).rel("self").build();
         music.addLink(link);

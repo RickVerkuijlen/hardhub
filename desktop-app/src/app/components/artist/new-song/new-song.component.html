@@ -9,6 +9,25 @@
                 class="alert alert-danger">
             Name is required
         </div>
+        <label for="name">MP3 file</label>
+        <input type="file" class="form-control" id="song"
+                required
+                [(ngModel)]="model.song" name="song"
+                #song="ngModel">
+        <div [hidden]="song.valid || song.pristine"
+                class="alert alert-danger">
+            Mp3 is required
+        </div>
+        <label for="name">Thumbnail</label>
+        <input type="input" class="form-control" id="thumbnail"
+                required
+                [(ngModel)]="model.thumbnail" name="thumbnail"
+                #thumbnail="ngModel">
+        <div [hidden]="thumbnail.valid || thumbnail.pristine"
+                class="alert alert-danger">
+            Thumbnail is required
+        </div>
+        
     </div>
     <input type="submit" value="asdf" />
 </form>

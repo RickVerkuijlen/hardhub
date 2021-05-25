@@ -2,6 +2,7 @@ package nl.rickverkuijlen.hardhub.controller;
 
 import nl.rickverkuijlen.hardhub.S3.FileObject;
 import nl.rickverkuijlen.hardhub.logic.MusicLogic;
+import nl.rickverkuijlen.hardhub.model.Music;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.logging.Logger;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
@@ -11,10 +12,7 @@ import software.amazon.awssdk.services.s3.model.ListObjectsRequest;
 import software.amazon.awssdk.services.s3.model.S3Object;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.StreamingOutput;
@@ -114,6 +112,25 @@ public class MusicController extends CommonResource {
             return Response
                     .status(Response.Status.OK)
                     .entity(musicLogic.getAll())
+                    .type(MediaType.APPLICATION_JSON_TYPE)
+                    .build();
+        } catch (Exception e) {
+            return Response
+                    .status(Response.Status.BAD_REQUEST)
+                    .entity(e.getMessage())
+                    .type(MediaType.TEXT_PLAIN)
+                    .build();
+        }
+    }
+
+    @POST
+    public Response addSong(Music music) {
+        log.info("addSong" + music);
+        s3.putObject()
+        try {
+            return Response
+                    .status(Response.Status.CREATED)
+                    .entity(musicLogic.addSong(music))
                     .type(MediaType.APPLICATION_JSON_TYPE)
                     .build();
         } catch (Exception e) {
