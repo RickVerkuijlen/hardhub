@@ -4,6 +4,8 @@ import nl.rickverkuijlen.hardhub.model.Playlist;
 import nl.rickverkuijlen.hardhub.model.PlaylistSong;
 import nl.rickverkuijlen.hardhub.repository.PlaylistRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.Acknowledgment;
+import org.eclipse.microprofile.reactive.messaging.Incoming;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -48,6 +50,12 @@ public class PlaylistLogic {
             playlist.addLink(artist);
         }
 
+    }
+
+    @Incoming("forget-artist")
+    @Acknowledgment(Acknowledgment.Strategy.POST_PROCESSING)
+    public void forgetArtist(String artistId) {
+        System.out.println(artistId);
     }
 
 }

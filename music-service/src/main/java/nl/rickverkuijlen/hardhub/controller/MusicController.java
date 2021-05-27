@@ -126,7 +126,7 @@ public class MusicController extends CommonResource {
     @POST
     public Response addSong(Music music) {
         log.info("addSong" + music);
-        s3.putObject()
+//        s3.putObject()
         try {
             return Response
                     .status(Response.Status.CREATED)

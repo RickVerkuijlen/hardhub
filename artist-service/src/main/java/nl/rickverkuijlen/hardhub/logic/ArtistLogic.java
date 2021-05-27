@@ -1,9 +1,13 @@
 package nl.rickverkuijlen.hardhub.logic;
 
+import io.smallrye.reactive.messaging.annotations.Broadcast;
 import nl.rickverkuijlen.hardhub.model.Artist;
+import nl.rickverkuijlen.hardhub.repository.ArtistRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
+import org.eclipse.microprofile.reactive.messaging.*;
 
 import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import javax.ws.rs.core.Link;
 import java.util.List;
 
@@ -12,6 +16,13 @@ public class ArtistLogic {
 
     @ConfigProperty(name = "gateway.endpoint")
     String gatewayEndpoint;
+
+    @Inject
+    ArtistRepository artistRepository;
+
+    @Inject
+    @Channel("forget-artist")
+    Emitter<String> artistEmitter;
 
     public List<Artist> getAll() {
         List<Artist> result = Artist.listAll();
@@ -36,4 +47,12 @@ public class ArtistLogic {
 
         return result;
     }
+
+    public String delete(String artistId) throws Exception {
+        artistRepository.delete(artistId);
+        artistEmitter.send(artistId);
+        return artistId;
+    }
+
+
 }

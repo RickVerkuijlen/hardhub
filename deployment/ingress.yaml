@@ -20,3 +20,17 @@ spec:
             name: artist-service
             port: 
               number: 80
+      - path: /playlist
+        pathType: Prefix
+        backend:
+          service:
+            name: playlist-service
+            port: 
+              number: 80
+      - path: /auth
+        pathType: Prefix
+        backend:
+          service:
+            name: keycloak
+            port: 
+              number: 80

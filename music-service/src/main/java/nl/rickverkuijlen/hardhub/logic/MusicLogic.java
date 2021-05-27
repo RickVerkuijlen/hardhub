@@ -67,7 +67,7 @@ public class MusicLogic {
     }
 
     public Music addSong(Music music) throws Exception {
-
+        throw new Exception();
     }
 
     private void generateList(Music music) {
