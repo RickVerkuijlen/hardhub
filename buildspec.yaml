@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto11
+  pre_build:
+    commands:
+      - echo Nothing to do in the pre_build phase...
+  build:
+    commands:
+      - echo Build started on `date`
+      - mvn install -DskipTests
+  post_build:
+    commands:
+      - echo Build completed on `date`
+artifacts:
+  files:
+    - music-service/target/music-service-1.0.0-SNAPSHOT.jar
+    - playlist-service/target/playlist-service-1.0.0-SNAPSHOT.jar
+    - artist-service/target/artist-service-1.0.0-SNAPSHOT.jar
