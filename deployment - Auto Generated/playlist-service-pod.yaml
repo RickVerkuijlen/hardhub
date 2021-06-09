@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    io.kompose.service: playlist-service
+  name: playlist-service
+spec:
+  containers:
+  - image: hardhub_playlist-service:latest
+    name: playlist-service
+    ports:
+    - containerPort: 80
+    resources: {}
+    imagePullPolicy: IfNotPresent
+  restartPolicy: OnFailure
+status: {}

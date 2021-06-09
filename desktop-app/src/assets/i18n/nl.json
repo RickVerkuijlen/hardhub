@@ -1,0 +1,22 @@
+{
+    "PAGES": {
+        "HOME": {
+            "WELCOME": "Welkom ",
+            "LOGOUT": "Uitloggen",
+            "MANAGE": "Muziek beheren",
+            "RECOMMENDED": "Uitgelicht",
+            "ARTISTS": "Artiesten",
+            "PLAYLISTS": "Afspeellijsten"
+        },
+        "ARTIST": {
+          "FOLLOW": "Volgen",
+          "FOLLOWING": "Volgend",
+          "ADD": "Muziek uploaden"
+        },
+        "PLAYLIST": {
+            "TITLE": "Titel",
+            "ARTIST": "Artiest",
+            "SONGS": "nummers"
+          }
+    }
+}

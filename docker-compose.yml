@@ -1,0 +1,141 @@
+version: '3'
+
+services:
+  reverse-proxy:
+    build:
+      context: gateway
+      dockerfile: Dockerfile
+    depends_on:
+      - music-service
+      - artist-service
+      - playlist-service
+    ports:
+      - 8008:80
+  
+  keycloak-mysql:
+    image: mysql:5.7
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: keycloak
+      MYSQL_PASSWORD: password
+
+  keycloak:
+      image: jboss/keycloak:latest
+      environment:
+        DB_VENDOR: MYSQL
+        DB_ADDR: keycloak-mysql
+        DB_DATABASE: keycloak
+        DB_USER: keycloak
+        DB_PASSWORD: password
+        KEYCLOAK_USER: admin
+        KEYCLOAK_PASSWORD: Pa55w0rd
+        # Uncomment the line below if you want to specify JDBC parameters. The parameter below is just an example, and it shouldn't be used in production without knowledge. It is highly recommended that you read the MySQL JDBC driver documentation in order to use it.
+        #JDBC_PARAMS: "connectTimeout=30000"
+      ports:
+        - 8080:8080
+      depends_on:
+        - keycloak-mysql
+
+  mailhog:
+    image: mailhog/mailhog
+    logging:
+      driver: 'none'  # disable saving logs
+    ports:
+      - 1025:1025 # smtp server
+      - 8025:8025 # web ui
+
+  music-service:
+    build:
+      context: music-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment:
+      AWS_ACCESS_KEY_ID: ASIAWSSDDKFSB3WDLL5A
+      AWS_SECRET_ACCESS_KEY: Mr9MQ1Ij0bfxcRqM39vAK+sRHG98YB0d5WCF6NO/
+      AWS_SESSION_TOKEN: IQoJb3JpZ2luX2VjEPD//////////wEaCXVzLXdlc3QtMiJGMEQCIAQVw2DJCujtuwH8DrSiYfpox0XjjXY685ckseYXf2pNAiBLZ6fBLnfccazbNLEWGsd4hHCCf3gSovKbXhzSdEQfcirAAgiJ//////////8BEAAaDDQ1MjE4NjAzNDUzMiIMVwkKP4qC87vEYRV+KpQCp+9h4QJNWq7bBC2gxT2vYc6R3eH7kzGoI8BL/nQB6Mk6ug5LPekKXK799aj/PxfQA+UbPakYQB3uTT0bO/3JA93iU/EpC/vfHX5Qw/bMejqFJRG6KvDzj3kI5wvJouZhjCEV/R1+vU4lI6cH3ZfHPnN2lR1wIhS9j/bKmSqLAQ/yl2SSwRFvHaQX/CU6tVwaSAI9Xg7H+He3ebY6VtzWe8Ar9J/LiOot1++NKmL7gq4a3Q2GXYuZ4ZUaDm0soOsQSVtjRrIpYX41AjgVw/WDjVt1+vcbC96KEVyaOk5evAeHAlxjPvC5+97fBa9hHquHAzvuPfVdvOEye5yW3PdVrzRbeG8ecEECYdVOOpuedIIE4FKvMO6rmIUGOp4BqKkYGu4ekm6U0XwvtBolkpq1C188Ihell+ON0txpJYLuttEltaNjzOv23lTqHjhvT3amxRbALV8qAARpQZj9oZshXaBeQgSDnan+/lF1vYmQ3FA5vdzsTcv1iIWL5L+ifazu9lY2JcvNvBhKiXp3lA+tocnyEz/xHQTRYUXwje5l+WwCf0tjXbi/zTbXv8doIba5gXdwb4gbOgkHVwM=
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - 8081:80
+    restart: on-failure
+    depends_on:
+        - keycloak
+        # - kafka
+        - database
+
+  artist-service:
+    build:
+      context: artist-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment: 
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - 8082:80
+    restart: on-failure
+    depends_on:
+      - keycloak
+      - database
+
+  playlist-service:
+    build:
+      context: playlist-service
+      dockerfile: src/main/docker/Dockerfile.jvm
+    environment: 
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+    ports:
+      - 8083:80
+    restart: on-failure
+    depends_on:
+      - keycloak
+      - playlist-mysql
+  
+  playlist-mysql:
+    image: mysql:5.7
+    restart: always
+    volumes:
+      - playlist_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: playlist
+      MYSQL_USER: playlist
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+
+  database:
+    image: mongo:latest
+    environment:
+      - MONGO_INITDB_DATABASE=hardhub
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+    ports:
+      - 27017:27017
+    volumes:
+      - mongodb_data_container:/data/db
+
+  zookeeper:
+    image: wurstmeister/zookeeper:3.4.6
+    restart: always
+  kafka:
+    image: wurstmeister/kafka:2.12-2.2.1
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:9092
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CREATE_TOPICS: forget-artist:2:1
+    ports:
+      - 9094:9094
+    restart: always
+
+volumes:
+  mongodb_data_container:
+  mysql_data:
+      driver: local
+  playlist_data:
+  zookeeper-data:
+    driver: local
+  zookeeper-log:
+    driver: local
+  kafka-data:
+    driver: local

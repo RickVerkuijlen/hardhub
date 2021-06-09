@@ -1,0 +1,28 @@
+<div class="controls" id="thumbnail" [ngStyle]="{'backgroundImage': 'url(' + state?.thumbnailUrl + ')'}">
+    <mat-toolbar color="primary">
+        <div id="song-info">
+            <span>{{state?.songName}}</span>
+            <span routerLink="/artist" style="cursor: pointer">{{state?.artistName}}</span>
+        </div>
+        <mat-toolbar-row class="media-action-bar">
+            <!-- <button mat-button [disabled]="isFirstPlaying()" (click)="previous()">
+                <mat-icon mat-list-icon>skip_previous</mat-icon>
+            </button> -->
+            <fa-icon [icon]="faPlayCircle" (click)="play()" *ngIf="!state?.playing"></fa-icon>
+            <fa-icon [icon]="faPauseCircle" (click)="pause()" *ngIf="state?.playing"></fa-icon>
+            <!-- <button  mat-button [disabled]="isLastPlaying()" (click)="next()">
+                <mat-icon mat-list-icon>skip_next</mat-icon>
+            </button> -->
+        </mat-toolbar-row>
+        <mat-toolbar-row>
+            {{ state?.readableCurrentTime }}
+            <mat-slider class="time-slider slider" (input)="onTimeSliderChangeEnd($event)" min="0" [max]="state?.duration" step="1" [value]="state?.currentTime"></mat-slider>
+            {{ state?.readableDuration }}
+        </mat-toolbar-row>
+        <div id="volume">
+            <fa-icon [icon]="faVolumeDown"></fa-icon>
+            <mat-slider class="volume-slider slider" (input)="onVolumeSliderChange($event)" min="0" [max]="100" step="1" [value]="100"></mat-slider>
+            <fa-icon [icon]="faVolumeUp"></fa-icon>
+        </div>
+    </mat-toolbar>
+</div>
