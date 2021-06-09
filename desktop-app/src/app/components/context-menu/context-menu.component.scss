@@ -1,0 +1,16 @@
+.menu-link {
+    padding: 10px 5px;
+    cursor: pointer;
+    background-color: rgb(43, 43, 43);
+    z-index: 101;
+    &:hover {
+        color: orange;
+    }
+}
+
+.menu-link hr {
+    border: 0;
+    height: 0;
+    border-top: 1px solid #4c4c4c;
+    border-bottom: 1px solid #4c4c4c;
+}

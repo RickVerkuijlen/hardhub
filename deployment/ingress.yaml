@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: http-ingress
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /music
+        pathType: Prefix
+        backend:
+          service:
+            name: music-service
+            port: 
+              number: 80
+      - path: /artist
+        pathType: Prefix
+        backend:
+          service:
+            name: artist-service
+            port: 
+              number: 80
+      - path: /playlist
+        pathType: Prefix
+        backend:
+          service:
+            name: playlist-service
+            port: 
+              number: 80
+      - path: /auth
+        pathType: Prefix
+        backend:
+          service:
+            name: keycloak
+            port: 
+              number: 80

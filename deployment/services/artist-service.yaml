@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: artist-service
+    labels:
+        app: artist-service
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: artist-service
+    template:
+        metadata:
+            labels:
+                app: artist-service
+        spec:
+            containers:
+            - name: artist-service
+              image: docker.pkg.github.com/rickverkuijlen/hardhub/hardhub_artist-service:v1
+              ports:
+              - containerPort: 9091
+              env:
+              - name: QUARKUS_MONGODB_CONNECTION_STRING
+                valueFrom:
+                  configMapKeyRef:
+                    name: music-service-configmap
+                    key: database_url
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: artist-service
+spec:
+  selector:
+    app: artist-service
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 9091

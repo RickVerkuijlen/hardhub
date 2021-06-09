@@ -25,7 +25,7 @@ spec:
                   configMapKeyRef:
                     name: playlist-configmap
                     key: database_url
-              - name: QUARKUS_DATASOURCE_PASSOWRD
+              - name: QUARKUS_DATASOURCE_PASSWORD
 ---
 apiVersion: v1
 kind: Service
