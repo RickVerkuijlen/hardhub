@@ -71,6 +71,7 @@ public class MusicRepository extends CommonResource implements PanacheMongoRepos
 
         result.forEach(music -> {
             deleteMusicFromAWS(music.getName());
+            deleteMusicFromAWS(music.getImageId());
             delete("id", music.getId());
         });
     }

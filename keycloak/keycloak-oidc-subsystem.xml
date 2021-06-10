@@ -1,7 +1,0 @@
-<secure-deployment name="WAR MODULE NAME.war">
-    <realm>hardhub</realm>
-    <auth-server-url>http://localhost:8080/auth/</auth-server-url>
-    <public-client>true</public-client>
-    <ssl-required>EXTERNAL</ssl-required>
-    <resource>hardhub</resource>
-</secure-deployment>

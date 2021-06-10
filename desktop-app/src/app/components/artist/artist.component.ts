@@ -14,27 +14,26 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 })
 export class ArtistComponent implements OnInit {
 
-  // public artist: Artist;
-
   public allSongs$: Observable<Song[]>;
   public artist$: Observable<Artist>;
+  public id: string;
+  hidden: boolean = true;
 
   isCurrentUserArtist = false;
 
   faPlus = faPlus;
+  
 
   constructor(private _Activatedroute: ActivatedRoute, private artistService: ArtistService, private songService: SongService) { }
 
   ngOnInit(): void {
-    let id = this._Activatedroute.snapshot.paramMap.get('id');
+    this.id = this._Activatedroute.snapshot.paramMap.get('id');
 
-    this.artistService.getArtistById(id);
+    this.artistService.getArtistById(this.id);
     this.artist$ = this.artistService.artist$;
 
-    this.songService.getAllSongsFromArtist(id);
-    this.allSongs$ = this.songService.allSongs$;
-
-    console.log(this.artist$);
+    this.songService.getAllSongsFromArtist(this.id);
+    this.allSongs$ = this.songService.artistSongs$;
 
     this.artist$.subscribe((artist: Artist) => {
       if(artist.id == JSON.parse(localStorage.getItem("user")).uuid) {
@@ -43,6 +42,10 @@ export class ArtistComponent implements OnInit {
     })
     
     
+  }
+
+  enableModal(): void {
+    this.hidden = false;
   }
 
 }

@@ -19,11 +19,12 @@ const routes: Routes = [
   },
   {
     path: 'artist/:id',
-    component: ArtistComponent
+    component: ArtistComponent,
   },
   {
     path: 'playlist/:id',
-    component: PlaylistComponent
+    component: PlaylistComponent,
+    canActivate: [ AuthGuard ]
   },
   {
     path: 'manage/:id',

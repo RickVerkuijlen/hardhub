@@ -40,6 +40,7 @@ export class SongService {
   }
 
   public getAllSongsFromArtist(id: string) {
+    console.log(id)
     this.request.getAllSongsByArtist(id).pipe(
       mergeMap((asIs: Song[]) => asIs),
       map((song: Song) => ({
@@ -56,7 +57,8 @@ export class SongService {
           song.isImgLoaded = false;
         })
       })
-      this.allSongsSubject.next(data);
+      console.log(data);
+      this.artistSongsSubject.next(data);
     })
   }
 

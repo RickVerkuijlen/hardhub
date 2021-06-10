@@ -5,23 +5,26 @@
         <button id="follow">{{ 'PAGES.ARTIST.FOLLOW' | translate}}</button>
     </div>
     <div class="allSongs">
-        <div class="song" *ngFor="let song of allSongs$ | async" (contextmenu)="displayContextMenu($event, song.id); false" >
-            <div (click)="playSong(song)">
-                <div class="song-info">
-                    <p>{{song.name}}</p>
-                    <a [routerLink]="['/artist', song.artist.id]">{{song.artist.name}}</a>
+        <div class="song" *ngFor="let song of allSongs$ | async" >
+            <div (contextmenu)="displayContextMenu($event, song.id); false">
+                <div (click)="playSong(song)">
+                    <div class="song-info">
+                        <p>{{song.name}}</p>
+                        <a [routerLink]="['/artist', song.artist?.id]">{{song.artist?.name}}</a>
+                    </div>
+                    <img *ngIf="!song.isImgLoaded" src="assets/icons/load.gif" class="loading"/>
+                    <img [hidden]="!song.isImgLoaded" [src]="song.imageId" class="thumbnail" (load)="song.isImgLoaded = !song.isImgLoaded"/>
                 </div>
-                <img *ngIf="!song.isImgLoaded" src="assets/icons/load.gif" class="loading"/>
-                <img [hidden]="!song.isImgLoaded" [src]="song.imageId" class="thumbnail" (load)="song.isImgLoaded = !song.isImgLoaded"/>
             </div>
+            
         </div>
-        <p *ngIf="isCurrentUserArtist">
+        <p *ngIf="isCurrentUserArtist" (click)="enableModal()">
             <fa-icon [icon]="faPlus"></fa-icon>
             {{ 'PAGES.ARTIST.ADD' | translate }}
         </p>
     </div>
+    <div class="modal" *ngIf="artist$ | async as artist" [hidden]=hidden>
+        <app-new-song artistId="{{id}}" artistName="{{artist.name}}"></app-new-song>
+    </div>
 </div>
 
-<div class="modal">
-    <app-new-song></app-new-song>
-</div>

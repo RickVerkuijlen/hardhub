@@ -1,5 +1,6 @@
 export class NewSong {
-    name: string
+    name: string;
+    artistId: string;
     song: string;
     thumbnail: string;
 }
