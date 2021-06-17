@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" #songForm="ngForm">
+<form (ngSubmit)="onSubmit()" #songForm="ngForm" id="form">
     <div class="form-group">
         <h1>{{ 'PAGES.ARTIST.ADD' | translate}}</h1>
         <div class="input-label">
@@ -18,7 +18,8 @@
                     required
                     [(ngModel)]="model.song" name="song"
                     #song="ngModel"
-                    accept="audio/*">
+                    accept="audio/*"
+                    (change)="onMusicChange($event)">
             <div [hidden]="song.valid || song.pristine"
                     class="alert alert-danger">
                 Mp3 is required

@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
+import { SongService } from '../../../services/song.service';
 import { NewSong } from './new-song';
 
 @Component({
@@ -11,6 +12,7 @@ export class NewSongComponent {
 
   model = new NewSong();
   imageSrc: string;
+  musicSrc: string;
 
   @Input("artistId")
   artistId: string;
@@ -18,11 +20,13 @@ export class NewSongComponent {
   @Input("artistName")
   artistName: string;
 
-  constructor(public translate: TranslateService) {}
+  constructor(public translate: TranslateService, private songService: SongService) {}
 
   onSubmit() {
+
     this.model.artistId = this.artistId;
-    console.log(this.model);
+    
+    this.songService.uploadSong(this.model)
   }
 
   onFileChange(event) {
@@ -30,13 +34,21 @@ export class NewSongComponent {
      
     if(event.target.files && event.target.files.length) {
       const [file] = event.target.files;
+      this.model.thumbnail = file;
       reader.readAsDataURL(file);
      
       reader.onload = () => {
-        console.log(reader.result as string)
         this.imageSrc = reader.result as string;
     
       };
+    
+    }
+  }
+
+  onMusicChange(event) {
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.model.song = file;
     
     }
   }

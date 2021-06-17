@@ -6,6 +6,7 @@ import { map, mapTo } from 'rxjs/operators';
 import { Song } from '../interfaces/song';
 import { Playlist } from '../interfaces/playlist';
 import { Artist } from '../interfaces/artist';
+import { NewSong } from '../components/artist/new-song/new-song';
 
 @Injectable({
   providedIn: 'root'
@@ -62,5 +63,9 @@ export class RequestService {
 
   getPlaylistByUserId(id: string) {
     return this.http.get(this._baseUrl + "playlist/user/" + id);
+  }
+
+  uploadSong(song: NewSong) {
+    this.http.post(this._baseUrl + "music", song).subscribe();
   }
 }

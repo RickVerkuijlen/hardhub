@@ -1,6 +1,7 @@
 package nl.rickverkuijlen.hardhub.logic;
 
 import nl.rickverkuijlen.hardhub.model.Music;
+import nl.rickverkuijlen.hardhub.model.NewSong;
 import nl.rickverkuijlen.hardhub.model.Pair;
 import nl.rickverkuijlen.hardhub.repository.MusicRepository;
 import org.eclipse.microprofile.config.inject.ConfigProperty;
@@ -70,7 +71,9 @@ public class MusicLogic {
         return success;
     }
 
-    public Music addSong(Music music) throws Exception {
+    public Music addSong(NewSong music) throws Exception {
+        repository.upload(music);
+
         throw new Exception();
     }
 

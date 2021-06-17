@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { forkJoin, Observable, ReplaySubject } from 'rxjs';
 import { map, mergeMap, take, toArray } from 'rxjs/operators';
+import { NewSong } from '../components/artist/new-song/new-song';
 import { Artist } from '../interfaces/artist';
 import { Song } from '../interfaces/song';
 import { RequestService } from './request.service';
@@ -68,5 +69,10 @@ export class SongService {
 
   public updateStreamCount(id: number): void {
     return this.request.updateStreamCount(id);
+  }
+
+  public uploadSong(song: NewSong): void {
+    console.log(song);
+    this.request.uploadSong(song);
   }
 }

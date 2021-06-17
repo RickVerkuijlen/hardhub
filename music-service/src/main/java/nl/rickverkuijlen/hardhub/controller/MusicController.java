@@ -1,12 +1,15 @@
 package nl.rickverkuijlen.hardhub.controller;
 
 import nl.rickverkuijlen.hardhub.S3.FileObject;
+import nl.rickverkuijlen.hardhub.S3.FormData;
 import nl.rickverkuijlen.hardhub.logic.MusicLogic;
 import nl.rickverkuijlen.hardhub.model.Music;
+import nl.rickverkuijlen.hardhub.model.NewSong;
 import nl.rickverkuijlen.hardhub.model.Pair;
 import nl.rickverkuijlen.hardhub.repository.CommonResource;
 import org.jboss.resteasy.annotations.jaxrs.PathParam;
 import org.jboss.logging.Logger;
+import org.jboss.resteasy.annotations.providers.multipart.MultipartForm;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
@@ -112,13 +115,12 @@ public class MusicController extends CommonResource {
     }
 
     @POST
-    public Response addSong(Music music) {
+    public Response addSong(NewSong music) {
         log.info("addSong" + music);
-//        s3.putObject()
         try {
             return Response
                     .status(Response.Status.CREATED)
-                    .entity(musicLogic.addSong(music))
+                    .entity(musicLogic.addSong(null))
                     .type(MediaType.APPLICATION_JSON_TYPE)
                     .build();
         } catch (Exception e) {

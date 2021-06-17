@@ -6,12 +6,15 @@ import com.mongodb.client.MongoCursor;
 import io.quarkus.mongodb.panache.PanacheMongoRepository;
 import io.smallrye.mutiny.tuples.Tuple2;
 import nl.rickverkuijlen.hardhub.model.Music;
+import nl.rickverkuijlen.hardhub.model.NewSong;
 import nl.rickverkuijlen.hardhub.model.Pair;
 import org.bson.Document;
+import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.core.sync.ResponseTransformer;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectResponse;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -57,6 +60,13 @@ public class MusicRepository extends CommonResource implements PanacheMongoRepos
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void upload(NewSong music) {
+        System.out.println(music.getSong());
+        PutObjectResponse putResponse = s3.putObject(buildPutRequest(music.getSong()), RequestBody.fromFile(uploadToTemp(music.getSong().data)));
+        System.out.println(putResponse);
+//        s3.putObject(buildPutRequest(music.getThumbnail()), RequestBody.fromFile(uploadToTemp(music.getSong().data)));
     }
 
     public Pair<GetObjectResponse, StreamingOutput> getObjectResponse(String path) {
